@@ -1,0 +1,4 @@
+Week 1 : 9/3 - 9/10
+	Developed alpha prototype for recolor AI
+	Developed beta prototype for recolor AI
+	
