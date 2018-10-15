@@ -27,7 +27,10 @@ Xtrain = 1.0/255*X
 
 #Load weights
 inception = InceptionResNetV2(weights=None, include_top=True)
-#inception.load_weights('/data/inception_resnet_v2_weights_tf_dim_ordering_tf_kernels.h5')
+try:
+	inception.load_weights('color_tensorflow_real_mode.h5')
+except:
+	print("Error ")
 inception.graph = tf.get_default_graph()
 
 embed_input = Input(shape=(1000,))
@@ -96,7 +99,7 @@ def image_a_b_gen(batch_size):
 #Train model      
 #tensorboard = TensorBoard(log_dir="/output")
 model.compile(optimizer='adam', loss='mse')
-model.fit_generator(image_a_b_gen(batch_size), epochs=1000, steps_per_epoch=20)
+model.fit_generator(image_a_b_gen(batch_size), epochs=10, steps_per_epoch=10)
 
 # Save model
 model_json = model.to_json()
