@@ -6,7 +6,7 @@ from keras.applications.inception_resnet_v2 import preprocess_input
 from keras.layers import Conv2D, UpSampling2D, InputLayer, Conv2DTranspose, Input, Reshape, merge, concatenate, Activation, Dense, Dropout, Flatten
 from keras.layers.normalization import BatchNormalization
 from keras.callbacks import TensorBoard 
-from keras.models import Sequential, Model
+from keras.models import Sequential, Model, load_model
 from keras.layers.core import RepeatVector, Permute
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from skimage.color import rgb2lab, lab2rgb, rgb2gray, gray2rgb
@@ -33,36 +33,45 @@ except:
 	print("Error ")
 inception.graph = tf.get_default_graph()
 
+saveNotFound = True
+try:
+	model = load_model('recolorNetSave.h5')
+	print('save found! loading now')
+	saveNotFound = False
+except:
+	print("no saved model found.")
+	saveNotFound = True
+
 embed_input = Input(shape=(1000,))
+if(saveNotFound):
+	#Encoder
+	encoder_input = Input(shape=(256, 256, 1,))
+	encoder_output = Conv2D(64, (3,3), activation='relu', padding='same', strides=2)(encoder_input)
+	encoder_output = Conv2D(128, (3,3), activation='relu', padding='same')(encoder_output)
+	encoder_output = Conv2D(128, (3,3), activation='relu', padding='same', strides=2)(encoder_output)
+	encoder_output = Conv2D(256, (3,3), activation='relu', padding='same')(encoder_output)
+	encoder_output = Conv2D(256, (3,3), activation='relu', padding='same', strides=2)(encoder_output)
+	encoder_output = Conv2D(512, (3,3), activation='relu', padding='same')(encoder_output)
+	encoder_output = Conv2D(512, (3,3), activation='relu', padding='same')(encoder_output)
+	encoder_output = Conv2D(256, (3,3), activation='relu', padding='same')(encoder_output)
 
-#Encoder
-encoder_input = Input(shape=(256, 256, 1,))
-encoder_output = Conv2D(64, (3,3), activation='relu', padding='same', strides=2)(encoder_input)
-encoder_output = Conv2D(128, (3,3), activation='relu', padding='same')(encoder_output)
-encoder_output = Conv2D(128, (3,3), activation='relu', padding='same', strides=2)(encoder_output)
-encoder_output = Conv2D(256, (3,3), activation='relu', padding='same')(encoder_output)
-encoder_output = Conv2D(256, (3,3), activation='relu', padding='same', strides=2)(encoder_output)
-encoder_output = Conv2D(512, (3,3), activation='relu', padding='same')(encoder_output)
-encoder_output = Conv2D(512, (3,3), activation='relu', padding='same')(encoder_output)
-encoder_output = Conv2D(256, (3,3), activation='relu', padding='same')(encoder_output)
+	#Fusion
+	fusion_output = RepeatVector(32 * 32)(embed_input) 
+	fusion_output = Reshape(([32, 32, 1000]))(fusion_output)
+	fusion_output = concatenate([encoder_output, fusion_output], axis=3) 
+	fusion_output = Conv2D(256, (1, 1), activation='relu', padding='same')(fusion_output) 
 
-#Fusion
-fusion_output = RepeatVector(32 * 32)(embed_input) 
-fusion_output = Reshape(([32, 32, 1000]))(fusion_output)
-fusion_output = concatenate([encoder_output, fusion_output], axis=3) 
-fusion_output = Conv2D(256, (1, 1), activation='relu', padding='same')(fusion_output) 
+	#Decoder
+	decoder_output = Conv2D(128, (3,3), activation='relu', padding='same')(fusion_output)
+	decoder_output = UpSampling2D((2, 2))(decoder_output)
+	decoder_output = Conv2D(64, (3,3), activation='relu', padding='same')(decoder_output)
+	decoder_output = UpSampling2D((2, 2))(decoder_output)
+	decoder_output = Conv2D(32, (3,3), activation='relu', padding='same')(decoder_output)
+	decoder_output = Conv2D(16, (3,3), activation='relu', padding='same')(decoder_output)
+	decoder_output = Conv2D(2, (3, 3), activation='tanh', padding='same')(decoder_output)
+	decoder_output = UpSampling2D((2, 2))(decoder_output)
 
-#Decoder
-decoder_output = Conv2D(128, (3,3), activation='relu', padding='same')(fusion_output)
-decoder_output = UpSampling2D((2, 2))(decoder_output)
-decoder_output = Conv2D(64, (3,3), activation='relu', padding='same')(decoder_output)
-decoder_output = UpSampling2D((2, 2))(decoder_output)
-decoder_output = Conv2D(32, (3,3), activation='relu', padding='same')(decoder_output)
-decoder_output = Conv2D(16, (3,3), activation='relu', padding='same')(decoder_output)
-decoder_output = Conv2D(2, (3, 3), activation='tanh', padding='same')(decoder_output)
-decoder_output = UpSampling2D((2, 2))(decoder_output)
-
-model = Model(inputs=[encoder_input, embed_input], outputs=decoder_output)
+	model = Model(inputs=[encoder_input, embed_input], outputs=decoder_output)
 
 #Create embedding
 def create_inception_embedding(grayscaled_rgb):
@@ -98,14 +107,16 @@ def image_a_b_gen(batch_size):
 
 #Train model      
 #tensorboard = TensorBoard(log_dir="/output")
-model.compile(optimizer='adam', loss='mse')
-model.fit_generator(image_a_b_gen(batch_size), epochs=10, steps_per_epoch=10)
+if(saveNotFound):
+	model.compile(optimizer='adam', loss='mse')
+	model.fit_generator(image_a_b_gen(batch_size), epochs=100, steps_per_epoch=21)
 
 # Save model
 model_json = model.to_json()
 with open("model.json", "w") as json_file:
     json_file.write(model_json)
 model.save_weights("color_tensorflow_real_mode.h5")
+model.save('recolorNetSave.h5')
 
 #Make predictions on validation images
 # Change to '/data/images/Test/' to use all the 500 test images
