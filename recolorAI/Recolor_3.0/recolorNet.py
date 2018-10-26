@@ -16,9 +16,12 @@ import numpy as np
 import os
 import random
 import tensorflow as tf
-
+import datetime
+import glob
 # Get images
 # Change to '/data/images/Train/' to use all the 10k images
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 X = []
 for filename in os.listdir('../train/'):
     X.append(img_to_array(load_img('../train/'+filename)))
@@ -29,17 +32,30 @@ Xtrain = 1.0/255*X
 inception = InceptionResNetV2(weights=None, include_top=True)
 try:
 	inception.load_weights('color_tensorflow_real_mode.h5')
-except:
-	print("Error ")
+except Exception as e:
+	print("Error " + str(e))
 inception.graph = tf.get_default_graph()
 
 saveNotFound = True
 try:
-	model = load_model('recolorNetSave.h5')
-	print('save found! loading now')
-	saveNotFound = False
-except:
-	print("no saved model found.")
+	list_of_files = glob.glob('../saves/*.h5') # * means all if need specific format then *.csv
+	latest_file = max(list_of_files, key=os.path.getctime)
+	answer = input("File found! " + latest_file + " would you like to load it? [y/n]\n") #admin function
+	if answer is "y" or answer is "Y":
+		model = load_model(latest_file)
+		saveNotFound = False
+	else:
+		customAns = input("Would you like to load in a custom network? [y/n]\n")
+		if customAns is 'y' or answer is 'Y':
+			customFile = input("Please input filepath \n")
+			model = load_model(customFile)
+			saveNotFound = False
+		else:
+			
+			print("User elected not to use save, training new network")
+			saveNotFound = True
+except Exception as e:
+	print("saved model not found. " + str(e))
 	saveNotFound = True
 
 embed_input = Input(shape=(1000,))
@@ -108,15 +124,19 @@ def image_a_b_gen(batch_size):
 #Train model      
 #tensorboard = TensorBoard(log_dir="/output")
 if(saveNotFound):
+	numEpochs = input("How many epochs? [int]") # admin function
+	numSteps = input("How many steps per epochs? [int]") # admin function
 	model.compile(optimizer='adam', loss='mse')
-	model.fit_generator(image_a_b_gen(batch_size), epochs=100, steps_per_epoch=21)
+	model.fit_generator(image_a_b_gen(batch_size), epochs=1, steps_per_epoch=1)
 
 # Save model
 model_json = model.to_json()
 with open("model.json", "w") as json_file:
     json_file.write(model_json)
+savefilename = '../saves/recolorNetSave' + str(datetime.datetime.today().strftime('%Y_%m_%d')) + '.h5'
+print(savefilename)
 model.save_weights("color_tensorflow_real_mode.h5")
-model.save('recolorNetSave.h5')
+model.save(savefilename)
 
 #Make predictions on validation images
 # Change to '/data/images/Test/' to use all the 500 test images
