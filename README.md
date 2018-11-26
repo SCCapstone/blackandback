@@ -1,6 +1,6 @@
 # blackandback
 
-Web-based automatic photo colorizer.
+Web-based automatic photo colorizer. Users input a black and white photo and our program colors that photo without any human help.
 
 # Getting Started 
 
@@ -13,11 +13,15 @@ Running this code locally requires the following software:
     [Tensorflow](https://www.tensorflow.org/)
     [Keras](https://keras.io/)
 
-But all that end users need is a photo and an internet connection.
+Once you have all the prerequisite software installed, go to the *mysite* directory and start the server using
+
+    python manage.py runserver
+
+All that end users need is a photo and an internet connection.
 
 ## Note On Operating Systems
 
-A Windows setup is technically possible, but this software is intended to be run on a Linux machine.
+A Windows setup is possible, but this software is intended to be run on a Linux machine.
 
 # Our Team
 
