@@ -155,7 +155,6 @@ class RecolorNN(object):
 	
 	def makePredictions(self):
 	#Make predictions on validation images
-	# Change to '/data/images/Test/' to use all the 500 test images
 		for filename in os.listdir('../Test/'):
 			self.color_me.append(img_to_array(load_img('../Test/'+filename)))
 		self.color_me = np.array(self.color_me, dtype=float)
