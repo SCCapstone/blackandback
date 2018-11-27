@@ -1,5 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 def upload(request):
-	return HttpResponse("Welcome to the upload page")
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'upload/upload.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'upload/upload.html')
