@@ -5,6 +5,17 @@ from django.urls import reverse
 
 from .models import Question,Choice
 
+def top_photos(request):
+    return render(request, 'polls/top_photos.htm')
+
+def profile(request):
+    return render(request, 'polls/profile.htm')
+
+def contact(request):
+    return render(request, 'polls/contact.htm')
+
+def aboutus(request):
+    return render(request, 'polls/aboutus.htm')
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
