@@ -11,3 +11,12 @@ def index(request):
 	return HttpResponse(template.render(context, request))
 
 # Create your views here.
+def aboutus(request):
+	return HttpResponse(render(request, 'home/aboutus.htm'))
+
+def contact(request):
+	return HttpResponse(render(request, 'home/contact.htm'))
+
+def top_photos(request):
+	#add in way to get top photos obviously
+	return HttpResponse(render(request, 'home/top_photos.htm'))
