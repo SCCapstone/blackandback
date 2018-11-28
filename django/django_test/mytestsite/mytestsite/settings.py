@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_social_share',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,7 @@ TEMPLATES = [
 			"home/templates",
 			"upload/templates",
 			"accounts/templates",
+			"share/templates",
 		],
         'APP_DIRS': True,
         'OPTIONS': {
