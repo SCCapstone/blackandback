@@ -23,5 +23,5 @@ urlpatterns = [
     path('top_photos/',include('home.urls')),
 	path('' , include('home.urls')),
 	path('upload/', include('upload.urls')),
-        path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

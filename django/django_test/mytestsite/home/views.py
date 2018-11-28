@@ -3,7 +3,7 @@ from django.template import loader
 from django.http import HttpResponse
 
 def index(request):
-	all_links = {'upload'}
+	all_links = {'upload', 'accounts/login', 'aboutus', 'contact', 'top_photos'}
 	template = loader.get_template('home/index.html')
 	context = {
 		'all_links' :all_links,
