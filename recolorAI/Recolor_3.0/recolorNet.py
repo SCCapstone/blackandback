@@ -176,6 +176,33 @@ class RecolorNN(object):
 			cur[:,:,0] = self.color_me[i][:,:,0]
 			cur[:,:,1:] = self.output[i]
 			imsave("result/img_"+str(i)+".png", lab2rgb(cur))	
+def runNN():
+	NN = RecolorNN()
+	print("Loading files")
+	NN.loadTrainFiles()
+	print("Loaded files")
+	print("Loading weights")
+	NN.loadWeights()
+	print("Loaded weights")
+	print("Building layers")
+	NN.buildLayers()
+	print("Built layers")
+	print("Training model")
+	NN.trainModel()
+	print("Trained model")
+	print("Saving model")
+	NN.saveModel()
+	print("saved model")
+	print("Making predictions")
+	NN.makePredictions()
+	print("Made predictions")
+	print("Testing model")
+	NN.testModel()
+	print("Tested model")
+	print("Outputting images")
+	NN.outputColors()
+	print("Outputted images")
+
 if __name__ == '__main__':
 	NN = RecolorNN()
 	print("Loading files")
