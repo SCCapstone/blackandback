@@ -19,6 +19,8 @@ import tensorflow as tf
 import datetime
 import glob
 
+from django.conf import settings
+
 #supress cmd output
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -39,12 +41,12 @@ class RecolorNN(object):
 		self.numSteps = 1
 		
 		
-	def loadTrainFiles(self):
-		X = []
-		for filename in os.listdir('../train/'):
-			X.append(img_to_array(load_img('../train/'+filename)))
-		X = np.array(X, dtype=float)
-		self.Xtrain = 1.0/255*X	
+	#def loadTrainFiles(self):
+	#	X = []
+	#	for filename in os.listdir('../train/'):
+	#		X.append(img_to_array(load_img('../train/'+filename)))
+	#	X = np.array(X, dtype=float)
+	#	self.Xtrain = 1.0/255*X	
 		
 	def loadWeights(self):
 		#Load weights
@@ -56,9 +58,9 @@ class RecolorNN(object):
 
 		self.saveNotFound = True
 		try:
-			list_of_files = glob.glob('../saves/*.h5') # * means all if need specific format then *.csv
+			list_of_files = glob.glob('upload/saves/*') # * means all if need specific format then *.csv
 			latest_file = max(list_of_files, key=os.path.getctime)
-			answer = input("File found! " + latest_file + " would you like to load it? [y/n]\n") #admin function
+			answer = 'y' #input("File found! " + latest_file + " would you like to load it? [y/n]\n") #admin function
 			if answer is "y" or answer is "Y":
 				self.model = load_model(latest_file)
 				self.saveNotFound = False
@@ -148,15 +150,15 @@ class RecolorNN(object):
 		model_json = self.model.to_json()
 		with open("model.json", "w") as json_file:
 			json_file.write(model_json)
-		savefilename = '../saves/recolorNetSave' + str(datetime.datetime.today().strftime('%Y_%m_%d')) + '.h5'
+		savefilename = 'upload/saves/recolorNetSave' + str(datetime.datetime.today().strftime('%Y_%m_%d')) + '.h5'
 		print(savefilename)
 		self.model.save_weights("color_tensorflow_real_mode.h5")
 		self.model.save(savefilename)
 	
 	def makePredictions(self):
 	#Make predictions on validation images
-		for filename in os.listdir('../Test/'):
-			self.color_me.append(img_to_array(load_img('../Test/'+filename)))
+		for filename in os.listdir('upload/files/'):
+			self.color_me.append(img_to_array(load_img('upload/files/'+filename)))
 		self.color_me = np.array(self.color_me, dtype=float)
 		self.color_me = 1.0/255*self.color_me
 		self.color_me = gray2rgb(rgb2gray(self.color_me))
@@ -175,58 +177,44 @@ class RecolorNN(object):
 			cur = np.zeros((256, 256, 3))
 			cur[:,:,0] = self.color_me[i][:,:,0]
 			cur[:,:,1:] = self.output[i]
-			imsave("result/img_"+str(i)+".png", lab2rgb(cur))	
+			imsave("upload/result/img_"+str(i)+".png", lab2rgb(cur))	
 def runNN():
 	NN = RecolorNN()
-	print("Loading files")
-	NN.loadTrainFiles()
-	print("Loaded files")
-	print("Loading weights")
+	#NN.loadTrainFiles()
 	NN.loadWeights()
-	print("Loaded weights")
-	print("Building layers")
 	NN.buildLayers()
-	print("Built layers")
-	print("Training model")
 	NN.trainModel()
-	print("Trained model")
-	print("Saving model")
 	NN.saveModel()
-	print("saved model")
-	print("Making predictions")
 	NN.makePredictions()
-	print("Made predictions")
-	print("Testing model")
 	NN.testModel()
-	print("Tested model")
 	print("Outputting images")
 	NN.outputColors()
 	print("Outputted images")
 
-if __name__ == '__main__':
-	NN = RecolorNN()
-	print("Loading files")
-	NN.loadTrainFiles()
-	print("Loaded files")
-	print("Loading weights")
-	NN.loadWeights()
-	print("Loaded weights")
-	print("Building layers")
-	NN.buildLayers()
-	print("Built layers")
-	print("Training model")
-	NN.trainModel()
-	print("Trained model")
-	print("Saving model")
-	NN.saveModel()
-	print("saved model")
-	print("Making predictions")
-	NN.makePredictions()
-	print("Made predictions")
-	print("Testing model")
-	NN.testModel()
-	print("Tested model")
-	print("Outputting images")
-	NN.outputColors()
-	print("Outputted images")
+#if __name__ == '__main__':
+#	NN = RecolorNN()
+#	print("Loading files")
+#	NN.loadTrainFiles()
+#	print("Loaded files")
+#	print("Loading weights")
+#	NN.loadWeights()
+#	print("Loaded weights")
+#	print("Building layers")
+#	NN.buildLayers()
+#	print("Built layers")
+#	print("Training model")
+#	NN.trainModel()
+#	print("Trained model")
+#	print("Saving model")
+#	NN.saveModel()
+#	print("saved model")
+#	print("Making predictions")
+#	NN.makePredictions()
+#	print("Made predictions")
+#	print("Testing model")
+#	NN.testModel()
+#	print("Tested model")
+#	print("Outputting images")
+#	NN.outputColors()
+#	print("Outputted images")
 	
