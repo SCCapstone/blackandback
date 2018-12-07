@@ -24,4 +24,5 @@ urlpatterns = [
 	path('' , include('home.urls')),
 	path('upload/', include('upload.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+	path('share/', include('share.urls')),
 ]
