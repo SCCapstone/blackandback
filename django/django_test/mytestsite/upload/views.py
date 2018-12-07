@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from .recolorMod import recolorNet
+from django.http import HttpResponse
+
+
 
 def upload(request):
 	if request.method == 'POST' and request.FILES['myfile']:
