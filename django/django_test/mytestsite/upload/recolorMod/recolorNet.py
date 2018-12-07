@@ -177,7 +177,7 @@ class RecolorNN(object):
 			cur = np.zeros((256, 256, 3))
 			cur[:,:,0] = self.color_me[i][:,:,0]
 			cur[:,:,1:] = self.output[i]
-			imsave("upload/result/img_"+str(i)+".png", lab2rgb(cur))	
+			imsave("upload/files/img_"+str(i)+".png", lab2rgb(cur))	
 def runNN():
 	NN = RecolorNN()
 	#NN.loadTrainFiles()
