@@ -1,7 +1,15 @@
+<html>
+<style>
+body {
+    background-color:#8c8c8c;
+}
+</style>
+
 <h2>Login</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login</button>
 </form>
+<footer><a href="/accounts/signup">Create a New Account</a></footer>
 <footer><a href="/">Home</a></footer>
