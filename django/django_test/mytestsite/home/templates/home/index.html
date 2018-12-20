@@ -1,13 +1,16 @@
+<head>
+{% block content %}
+{% if user.is_authenticated %}
+  <h1 style="text-align:right">Welcome {{ user.username }}!</h1>
+{% else %}
+  <h1 style="text-align:right">You are not logged in</h1>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
+</head>
+
 <ul>
 	{% for link in all_links%}
 	<li><a href="{{ link }}">{{ link }}</a></li>
 	{% endfor %}
 </ul>
-{% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-{% endif %}
-{% endblock %}
