@@ -1,22 +1,4 @@
 <html>
-<style>
-body {
-    background-image: url(https://images.pexels.com/photos/237779/pexels-photo-237779.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
-}
-</style>
-
-{% block title %}Sign Up{% endblock %}
-
-{% block content %}
-  <h2><font color="white">Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
-{% endblock %}
-
-<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -41,7 +23,7 @@ body {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: #f7f4f4;
   display: block;
   transition: 0.3s;
 }
@@ -114,4 +96,20 @@ function closeNav() {
 
 </body>
 </html>
+
+<html>
+<style>
+body {
+    background-image: url(https://images.pexels.com/photos/237779/pexels-photo-237779.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+}
+</style>
+
+{% block content %}
+  <h2><font color="white">Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+{% endblock %}
 
