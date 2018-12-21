@@ -1,15 +1,15 @@
 <html>
 <style>
 body {
-    background-color:#8c8c8c;
+    background-image: url(https://www.headdies.com/wp-content/uploads/2014/11/dark-black-website-background.jpg);
 }
 </style>
 
-<h2>Login</h2>
+<h2><font color="red">Login</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login</button>
 </form>
-<footer><a href="/accounts/signup">Create a New Account</a></footer>
-<footer><a href="/">Home</a></footer>
+<input type="button" value="Create a New Account" onclick="window.location.href='http://127.0.0.1:8000/accounts/signup/'" />
+<input type="button" value="Home" onclick="window.location.href='http://127.0.0.1:8000/'" />
