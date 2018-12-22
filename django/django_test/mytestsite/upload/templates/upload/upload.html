@@ -3,7 +3,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
+    background-image: url(https://www.datacolor.com/wp-content/uploads/2017/08/colored-pencils.png);
+}
+body {
   font-family: "Lato", sans-serif;
+}
+div.center {
+  text-align: center;
+}
+
+div.a {
+  font-size: 120%;
+  color: #f1f5f2
+}
+div.transbox {
+  margin: 20px;
+  background-color: #080808;
+  border: 1px solid black;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 
 .sidebar {
@@ -104,10 +122,16 @@ function closeNav() {
     <input type="file" name="myfile">
     <button type="submit">Upload</button>
   </form>
-  <p>Once you click upload, it will take approximately one minute to recolor your photo, so please be patient!</p>
-  <p>please note that for now this only works for 256x256 images </p>
+  <div class="transbox">
+    <div class="a">
+      <div class="center">
+        <p>Once you click upload, it will take approximately one minute to recolor your photo, so please be patient!</p>
+        <p>please note that for now this only works for 256x256 images </p>
+      </div>
+    </div>
+  </div>
   {% if uploaded_file_url %}
-    <p>Your photo has been recolored! thank you for using our service!</p>
+    <div class="a">Your photo has been recolored! thank you for using our service!</div>
 	<a href = "/upload/files/img_0.png"> your image </a>
   {% endif %}
 

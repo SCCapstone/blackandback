@@ -104,13 +104,17 @@ function closeNav() {
 body {
     background-color:#a6a6a6;
 }
+div.c {
+  text-align: right;
+} 
 </style>
 
 {% block content %}
 {% if user.is_authenticated %}
   <h1 style="text-align:right">Welcome {{ user.username }}!</h1>
 {% else %}
-  <h1 style="text-align:right">You are not logged in</h1>
+  <div class="c">
+  <p>You are not logged in</p>
 {% endif %}
 {% endblock %}
 </head>
