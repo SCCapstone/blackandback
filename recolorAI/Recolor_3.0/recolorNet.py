@@ -6,9 +6,10 @@ from keras.applications.inception_resnet_v2 import preprocess_input
 from keras.layers import Conv2D, UpSampling2D, InputLayer, Conv2DTranspose, Input, Reshape, merge, concatenate, Activation, Dense, Dropout, Flatten
 from keras.layers.normalization import BatchNormalization
 from keras.callbacks import TensorBoard 
-from keras.models import Sequential, Model, load_model
+from keras.models import Sequential, Model, load_model, model_from_json
 from keras.layers.core import RepeatVector, Permute
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+from keras import backend as K
 from skimage.color import rgb2lab, lab2rgb, rgb2gray, gray2rgb
 from skimage.transform import resize
 from skimage.io import imsave
@@ -19,7 +20,7 @@ import tensorflow as tf
 import datetime
 import glob
 
-#supress cmd output
+#supress cmd output	
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class RecolorNN(object):
@@ -40,41 +41,59 @@ class RecolorNN(object):
 		
 		
 	def loadTrainFiles(self):
-		X = []
-		for filename in os.listdir('../train/'):
-			X.append(img_to_array(load_img('../train/'+filename)))
-		X = np.array(X, dtype=float)
-		self.Xtrain = 1.0/255*X	
+		if(self.saveNotFound):
+			X = []
+			for filename in os.listdir('../train/'):
+				X.append(img_to_array(load_img('../train/'+filename)))
+			X = np.array(X, dtype=float)
+			self.Xtrain = 1.0/255*X	
 		
 	def loadWeights(self):
 		#Load weights
+		#try:
+		#	self.inception.load_weights('color_tensorflow_real_mode.h5')
+		#except Exception as e:
+		#	print("Error " + str(e))
 		try:
-			self.inception.load_weights('color_tensorflow_real_mode.h5')
+			#K.clear_session()
+			self.inception.load_weights('../saves/model.h5')
 		except Exception as e:
-			print("Error " + str(e))
+			print(e)
 		self.inception.graph = tf.get_default_graph()
-
-		self.saveNotFound = True
-		try:
-			list_of_files = glob.glob('../saves/*.h5') # * means all if need specific format then *.csv
-			latest_file = max(list_of_files, key=os.path.getctime)
-			answer = input("File found! " + latest_file + " would you like to load it? [y/n]\n") #admin function
-			if answer is "y" or answer is "Y":
-				self.model = load_model(latest_file)
-				self.saveNotFound = False
-			else:
-				customAns = input("Would you like to load in a custom network? [y/n]\n")
-				if customAns is 'y' or customAns is 'Y':
-					customFile = input("Please input filepath \n")
-					self.model = load_model(customFile)
-					self.saveNotFound = False
-				else:
 			
-					print("User elected not to use save, training new network")
-					self.saveNotFound = True
+		self.saveNotFound = True
+		#try:
+		#	list_of_files = glob.glob('upload/saves/*') # * means all if need specific format then *.csv
+		#	latest_file = max(list_of_files, key=os.path.getctime)
+		#	print(latest_file)
+		#	answer = 'y' #input("File found! " + latest_file + " would you like to load it? [y/n]\n") #admin function
+		#	if answer is "y" or answer is "Y":
+		#		self.model = load_model(latest_file)
+		#		self.saveNotFound = False
+		#	else:
+		#		customAns = input("Would you like to load in a custom network? [y/n]\n")
+		#		if customAns is 'y' or customAns is 'Y':
+		#			customFile = input("Please input filepath \n")
+		#			self.model = load_model(customFile)
+		#			self.saveNotFound = False
+		#		else:
+		#	
+		#			print("User elected not to use save, training new network")
+		#			self.saveNotFound = True
+		#except Exception as e:
+		#	print("saved model not found. " + str(e))
+		#	self.saveNotFound = True
+		#self.modoel = load_model('upload/saves/recolorNetSave2018_12_16.h5')
+		
+		try:
+			json_file = open("../saves/model.json", 'r')
+			loaded_model_json = json_file.read()
+			json_file.close()
+			self.model = model_from_json(loaded_model_json)
+			self.model.load_weights("../saves/model.h5")
+			self.saveNotFound = False
 		except Exception as e:
-			print("saved model not found. " + str(e))
-			self.saveNotFound = True
+			print(e)
 	def buildLayers(self):
 		embed_input = Input(shape=(1000,))
 		if(self.saveNotFound):
@@ -139,20 +158,22 @@ class RecolorNN(object):
 #tensorboard = TensorBoard(log_dir="/output")
 	def trainModel(self):
 		if(self.saveNotFound):
-			self.numEpochs = int(input("How many epochs? [int] \n")) # admin function
-			self.numSteps = int(input("How many steps per epochs? [int] \n")) # admin function
+			self.numEpochs = 100#int(input("How many epochs? [int] \n")) # admin function
+			self.numSteps = 21#int(input("How many steps per epochs? [int] \n")) # admin function
 			self.model.compile(optimizer='adam', loss='mse')
-			self.model.fit_generator(self.image_a_b_gen(), epochs=self.numEpochs, steps_per_epoch=self.numSteps)
+			with tf.device('/gpu:0'):
+				self.model.fit_generator(self.image_a_b_gen(), epochs=self.numEpochs, steps_per_epoch=self.numSteps)
 	def saveModel(self):
 	# Save model
+		self.model.save_weights("../saves/model.h5")
 		model_json = self.model.to_json()
-		with open("model.json", "w") as json_file:
+		with open("../saves/model.json", "w") as json_file:
 			json_file.write(model_json)
-		savefilename = '../saves/recolorNetSave' + str(datetime.datetime.today().strftime('%Y_%m_%d')) + '.h5'
-		print(savefilename)
-		self.model.save_weights("color_tensorflow_real_mode.h5")
-		self.model.save(savefilename)
-	
+		json_file.close()
+		#savefilename = 'upload/saves/recolorNetSave' + str(datetime.datetime.today().strftime('%Y_%m_%d')) + '.h5'
+		#print(savefilename)
+		
+		#self.model.save(savefilename)
 	def makePredictions(self):
 	#Make predictions on validation images
 		for filename in os.listdir('../Test/'):
@@ -178,12 +199,12 @@ class RecolorNN(object):
 			imsave("result/img_"+str(i)+".png", lab2rgb(cur))	
 def runNN():
 	NN = RecolorNN()
-	print("Loading files")
-	NN.loadTrainFiles()
-	print("Loaded files")
 	print("Loading weights")
 	NN.loadWeights()
 	print("Loaded weights")
+	print("Loading files")
+	NN.loadTrainFiles()
+	print("Loaded files")
 	print("Building layers")
 	NN.buildLayers()
 	print("Built layers")
@@ -205,12 +226,12 @@ def runNN():
 
 if __name__ == '__main__':
 	NN = RecolorNN()
-	print("Loading files")
-	NN.loadTrainFiles()
-	print("Loaded files")
 	print("Loading weights")
 	NN.loadWeights()
 	print("Loaded weights")
+	print("Loading files")
+	NN.loadTrainFiles()
+	print("Loaded files")
 	print("Building layers")
 	NN.buildLayers()
 	print("Built layers")

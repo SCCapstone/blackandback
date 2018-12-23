@@ -9,7 +9,7 @@ from keras.applications.inception_resnet_v2 import preprocess_input
 from keras.layers import Conv2D, UpSampling2D, InputLayer, Conv2DTranspose, Input, Reshape, merge, concatenate, Activation, Dense, Dropout, Flatten
 from keras.layers.normalization import BatchNormalization
 from keras.callbacks import TensorBoard 
-from keras.models import Sequential, Model, load_model
+from keras.models import Sequential, Model, load_model, model_from_json
 from keras.layers.core import RepeatVector, Permute
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from skimage.color import rgb2lab, lab2rgb, rgb2gray, gray2rgb
@@ -22,6 +22,9 @@ import tensorflow as tf
 import datetime
 import glob
 
+from keras import backend as K
+
+from PIL import Image
 from django.conf import settings
 
 #supress cmd output
@@ -43,43 +46,37 @@ class RecolorNN(object):
 		self.numEpochs = 1
 		self.numSteps = 1
 		
+	def loadTrainFiles(self):
+		if(self.saveNotFound):
+			X = []
+			for filename in os.listdir('upload/recolorMod/train'):
+				X.append(img_to_array(load_img('upload/recolorMod/train/'+filename)))
+			X = np.array(X, dtype=float)
+			self.Xtrain = 1.0/255*X	
 		
-	#def loadTrainFiles(self):
-	#	X = []
-	#	for filename in os.listdir('../train/'):
-	#		X.append(img_to_array(load_img('../train/'+filename)))
-	#	X = np.array(X, dtype=float)
-	#	self.Xtrain = 1.0/255*X	
 		
 	def loadWeights(self):
-		#Load weights
+		
+		
 		try:
-			self.inception.load_weights('color_tensorflow_real_mode.h5')
+			self.inception.load_weights('upload/saves/model.h5')
 		except Exception as e:
-			print("Error " + str(e))
+			print(e)
 		self.inception.graph = tf.get_default_graph()
-
+		
+		
 		self.saveNotFound = True
+		
+		
 		try:
-			list_of_files = glob.glob('upload/saves/*') # * means all if need specific format then *.csv
-			latest_file = max(list_of_files, key=os.path.getctime)
-			answer = 'y' #input("File found! " + latest_file + " would you like to load it? [y/n]\n") #admin function
-			if answer is "y" or answer is "Y":
-				self.model = load_model(latest_file)
-				self.saveNotFound = False
-			else:
-				customAns = input("Would you like to load in a custom network? [y/n]\n")
-				if customAns is 'y' or customAns is 'Y':
-					customFile = input("Please input filepath \n")
-					self.model = load_model(customFile)
-					self.saveNotFound = False
-				else:
-			
-					print("User elected not to use save, training new network")
-					self.saveNotFound = True
+			json_file = open("upload/saves/model.json", 'r')
+			loaded_model_json = json_file.read()
+			json_file.close()
+			self.model = model_from_json(loaded_model_json)
+			self.model.load_weights("upload/saves/model.h5")
+			self.saveNotFound = False
 		except Exception as e:
-			print("saved model not found. " + str(e))
-			self.saveNotFound = True
+			print(e)
 	def buildLayers(self):
 		embed_input = Input(shape=(1000,))
 		if(self.saveNotFound):
@@ -141,27 +138,42 @@ class RecolorNN(object):
 			yield ([X_batch, self.create_inception_embedding(grayscaled_rgb)], Y_batch)
 
 #Train model      
-#tensorboard = TensorBoard(log_dir="/output")
 	def trainModel(self):
 		if(self.saveNotFound):
 			self.numEpochs = int(input("How many epochs? [int] \n")) # admin function
 			self.numSteps = int(input("How many steps per epochs? [int] \n")) # admin function
 			self.model.compile(optimizer='adam', loss='mse')
+			print("model compiled")
 			self.model.fit_generator(self.image_a_b_gen(), epochs=self.numEpochs, steps_per_epoch=self.numSteps)
+			print("model fit")
 	def saveModel(self):
 	# Save model
-		model_json = self.model.to_json()
-		with open("model.json", "w") as json_file:
-			json_file.write(model_json)
-		savefilename = 'upload/saves/recolorNetSave' + str(datetime.datetime.today().strftime('%Y_%m_%d')) + '.h5'
-		print(savefilename)
-		self.model.save_weights("color_tensorflow_real_mode.h5")
-		self.model.save(savefilename)
+		if(self.saveNotFound):
+			self.model.save_weights("model.h5")
+			model_json = self.model.to_json()
+			with open("upload/saves/model.json", "w") as json_file:
+				json_file.write(model_json)
+			json_file.close()
 	
-	def makePredictions(self):
+	
+	def resize_image(self,path):
+		outfile = 'upload/files/output.jpg'
+		im = Image.open(path)
+		im = im.resize( (256,256), Image.ANTIALIAS)
+		return im
+		
+	def makePredictions(self,username):
 	#Make predictions on validation images
-		for filename in os.listdir('upload/files/'):
-			self.color_me.append(img_to_array(load_img('upload/files/'+filename)))
+		FILE_DIR = ''
+		if self.saveNotFound :
+			FILE_DIR = 'upload/recolorMod/test/'
+		else:
+			FILE_DIR = 'upload/files/'
+	
+		
+		for filename in os.listdir(FILE_DIR):
+			resized_image = self.resize_image(FILE_DIR + filename)
+			self.color_me.append(img_to_array(resized_image)) #work here, maybe scratch load_img 
 		self.color_me = np.array(self.color_me, dtype=float)
 		self.color_me = 1.0/255*self.color_me
 		self.color_me = gray2rgb(rgb2gray(self.color_me))
@@ -174,50 +186,23 @@ class RecolorNN(object):
 		self.output = self.model.predict([self.color_me, self.color_me_embed])
 		self.output = self.output * 128
 
-	def outputColors(self):
+	def outputColors(self, username):
 		# Output colorizations
 		for i in range(len(self.output)):
 			cur = np.zeros((256, 256, 3))
 			cur[:,:,0] = self.color_me[i][:,:,0]
 			cur[:,:,1:] = self.output[i]
-			imsave("upload/files/img_"+str(i)+".png", lab2rgb(cur))	
-def runNN():
+			imsave("upload/files/" + "img_"+str(i)+".png", lab2rgb(cur))	
+def runNN(username):
 	NN = RecolorNN()
-	#NN.loadTrainFiles()
 	NN.loadWeights()
+	NN.loadTrainFiles()
 	NN.buildLayers()
 	NN.trainModel()
 	NN.saveModel()
-	NN.makePredictions()
+	NN.makePredictions(username)
 	NN.testModel()
 	print("Outputting images")
-	NN.outputColors()
+	NN.outputColors(username)
 	print("Outputted images")
 
-#if __name__ == '__main__':
-#	NN = RecolorNN()
-#	print("Loading files")
-#	NN.loadTrainFiles()
-#	print("Loaded files")
-#	print("Loading weights")
-#	NN.loadWeights()
-#	print("Loaded weights")
-#	print("Building layers")
-#	NN.buildLayers()
-#	print("Built layers")
-#	print("Training model")
-#	NN.trainModel()
-#	print("Trained model")
-#	print("Saving model")
-#	NN.saveModel()
-#	print("saved model")
-#	print("Making predictions")
-#	NN.makePredictions()
-#	print("Made predictions")
-#	print("Testing model")
-#	NN.testModel()
-#	print("Tested model")
-#	print("Outputting images")
-#	NN.outputColors()
-#	print("Outputted images")
-	
