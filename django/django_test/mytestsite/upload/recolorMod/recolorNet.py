@@ -43,22 +43,37 @@ class RecolorNN(object):
 		self.numEpochs = 1
 		self.numSteps = 1
 		
+	def loadTrainFiles(self):
+		if(self.saveNotFound):
+			X = []
+			for filename in os.listdir('upload/recolorMod/train'):
+				X.append(img_to_array(load_img('upload/recolorMod/train/'+filename)))
+			X = np.array(X, dtype=float)
+			self.Xtrain = 1.0/255*X	
+		
+		
 	def loadWeights(self):
 		
-		K.clear_session()
 		
 		try:
 			self.inception.load_weights('upload/saves/model.h5')
 		except Exception as e:
-			self.inception.graph = tf.get_default_graph()
+			print(e)
+		self.inception.graph = tf.get_default_graph()
+		
+		
 		self.saveNotFound = True
 		
-		json_file = open("upload/saves/model.json", 'r')
-		loaded_model_json = json_file.read()
-		json_file.close()
-		self.model = model_from_json(laoded_modoel_json)
-		self.model.load_weights("upload/saves/model.h5")
 		
+		try:
+			json_file = open("upload/saves/model.json", 'r')
+			loaded_model_json = json_file.read()
+			json_file.close()
+			self.model = model_from_json(loaded_model_json)
+			self.model.load_weights("upload/saves/model.h5")
+			self.saveNotFound = False
+		except Exception as e:
+			print(e)
 	def buildLayers(self):
 		embed_input = Input(shape=(1000,))
 		if(self.saveNotFound):
@@ -125,7 +140,9 @@ class RecolorNN(object):
 			self.numEpochs = int(input("How many epochs? [int] \n")) # admin function
 			self.numSteps = int(input("How many steps per epochs? [int] \n")) # admin function
 			self.model.compile(optimizer='adam', loss='mse')
+			print("model compiled")
 			self.model.fit_generator(self.image_a_b_gen(), epochs=self.numEpochs, steps_per_epoch=self.numSteps)
+			print("model fit")
 	def saveModel(self):
 	# Save model
 		if(self.saveNotFound):
@@ -134,12 +151,26 @@ class RecolorNN(object):
 			with open("upload/saves/model.json", "w") as json_file:
 				json_file.write(model_json)
 			json_file.close()
+	
+	
+	def resize_image(self,path):
+		outfile = 'upload/files/output.jpg'
+		im = Image.open(path)
+		im = im.resize( (256,256), Image.ANTIALIAS)
+		return im
+		
 	def makePredictions(self,username):
 	#Make predictions on validation images
-		for filename in os.listdir('upload/files/'):
-			with Image.open(filename) as photo:
-				photo.resize( (256,256), Image.ANTIALIAS)
-			self.color_me.append(img_to_array(load_img('upload/files/' + filename)))
+		FILE_DIR = ''
+		if self.saveNotFound :
+			FILE_DIR = 'upload/recolorMod/test/'
+		else:
+			FILE_DIR = 'upload/files/'
+	
+		
+		for filename in os.listdir(FILE_DIR):
+			resized_image = self.resize_image(FILE_DIR + filename)
+			self.color_me.append(img_to_array(resized_image)) #work here, maybe scratch load_img 
 		self.color_me = np.array(self.color_me, dtype=float)
 		self.color_me = 1.0/255*self.color_me
 		self.color_me = gray2rgb(rgb2gray(self.color_me))
@@ -162,6 +193,7 @@ class RecolorNN(object):
 def runNN(username):
 	NN = RecolorNN()
 	NN.loadWeights()
+	NN.loadTrainFiles()
 	NN.buildLayers()
 	NN.trainModel()
 	NN.saveModel()
