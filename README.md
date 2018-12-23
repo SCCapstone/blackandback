@@ -12,10 +12,13 @@ Running this code locally requires the following software:
     [Django 2.1.2 (or other compatable version)](https://www.djangoproject.com/)
     [Tensorflow](https://www.tensorflow.org/)
     [Keras](https://keras.io/)
+    [Psycopg2]
+    [social-auth-app-django]
+    [scikit-image]
 
 Once you have all the prerequisite software installed, go to the *mysite* directory and start the server using
 
-    python manage.py runserver
+    sudo python3 manage.py runserver 0.0.0.0:80
 
 All that end users need is a photo and an internet connection.
 

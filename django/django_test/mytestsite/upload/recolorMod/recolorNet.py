@@ -1,3 +1,6 @@
+#based originally off of https://medium.freecodecamp.org/colorize-b-w-photos-with-a-100-line-neural-network-53d9b4449f8d by Emil Walner
+
+
 import keras
 from keras.applications.inception_resnet_v2 import InceptionResNetV2
 from keras.preprocessing import image
@@ -203,4 +206,3 @@ def runNN(username):
 	NN.outputColors(username)
 	print("Outputted images")
 
-	

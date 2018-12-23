@@ -1,6 +1,5 @@
 <html>
 <head>
-<img src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -24,7 +23,7 @@ body {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #f1f5f2;
+  color: #f7f4f4;
   display: block;
   transition: 0.3s;
 }
@@ -45,7 +44,7 @@ body {
   font-size: 20px;
   cursor: pointer;
   background-color: #111;
-  color: rgb(255, 255, 255);
+  color: white;
   padding: 10px 15px;
   border: none;
 }
@@ -69,6 +68,7 @@ body {
 
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="http://127.0.0.1:8000/">Home</a>
   <a href="http://127.0.0.1:8000/accounts/login">Login</a>
   <a href="#">Profile</a>
   <a href="http://127.0.0.1:8000/upload">Upload</a>
@@ -79,7 +79,7 @@ body {
 </div>
 
 <div id="main">
-  <button class="openbtn" onclick="openNav()">☰ Toggle Sidebar</button>  
+  <button class="openbtn" onclick="openNav()">☰ Toggle Sidebar</button>
 </div>
 
 <script>
@@ -93,30 +93,23 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
 }
 </script>
-   
-</body>
-</html> 
 
-<head>
+</body>
+</html>
 
 <html>
 <style>
 body {
-    background-color:#a6a6a6;
+    background-image: url(https://images.pexels.com/photos/237779/pexels-photo-237779.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
 }
-div.c {
-  text-align: right;
-} 
 </style>
 
 {% block content %}
-{% if user.is_authenticated %}
-  <h1 style="text-align:right">Welcome {{ user.username }}!</h1>
-{% else %}
-  <div class="c">
-  <p>You are not logged in</p>
-{% endif %}
+  <h2><font color="white">Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
 {% endblock %}
-</head>
-
 

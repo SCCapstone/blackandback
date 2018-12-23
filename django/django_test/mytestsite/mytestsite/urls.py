@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+from accounts import views as accounts_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +27,8 @@ urlpatterns = [
     path('top_photos/',include('home.urls')),
 	path('' , include('home.urls')),
 	path('upload/', include('upload.urls')),
+    path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 	path('share/', include('share.urls')),
+#    url(r'^signup/$', core_views.signup, name='signup')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
