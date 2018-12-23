@@ -27,6 +27,9 @@ from keras import backend as K
 from PIL import Image
 from django.conf import settings
 
+
+#is kiki running the newest thing
+
 #supress cmd output
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
