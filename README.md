@@ -41,8 +41,12 @@ Must be using chrome browser and have chromedriver and selenium installed
 
 Run unit tests by using commands:
 cd blackandback/django/django_test/mytestsite
-run manage.py test
+python3 manage.py test
 
 Run behavioral tests with the following commands:
+cd blackandback/django/django_test/mytestsite
+python3 manage.py runserver
+
+then in a separate terminal window:
 cd blackandback/django/django_test/mytestsite/test
 ./behavior_test.py
