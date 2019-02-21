@@ -2,6 +2,20 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+#myProgress {
+	width: 50%;
+	background-color: #ddd;
+}
+#myBar {
+	width: 0%;
+	height: 30px;
+	background-color: #4CAF50;
+	text-align: center;
+	line-height: 30px;
+	color: white;
+}
+
 body {
     background-color:#a6a6a6;
 }
@@ -114,27 +128,8 @@ function closeNav() {
 </body>
 </html>
 
-<html>
-<body>
-  <form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-    <input type="file" id="uploadFile" name="myfile">
-    <button type="submit" onclick="show()">Upload</button>
-  </form>
-  <div class="transbox">
-    <div class="a">
-      <div class="center">
-        <p>Once you click upload, it will take approximately one minute to recolor your photo, so please be patient!</p>
-        <p>works for all sized photos, but please note that square photos yield better results </p>
-      </div>
-    </div>
-  </div>
-	<a id="test" href="" style="visibility: hidden;">See your photo!</a>
-  {% if uploaded_file_url %}
-	<button onclick="displayLink()">Display photo link!</button>
-  {% endif %}
 
-	<script>
+<script>
 	
 	function show(){
 		var filePath = "/upload/files/" + "{{ user.username }}" + "/";
@@ -150,6 +145,37 @@ function closeNav() {
 		document.getElementById("test").style.visibility ="visible";
 	}
 	
+	function move() {
+		document.getElementById("myProgress").style.visibility="visible";
+		var elem = document.getElementById("myBar");   
+		var width = 0;
+		var id = setInterval(frame, 450);
+		function frame() {
+			if (width >= 99) {
+				clearInterval(id);
+			} else {
+				width++; 
+				elem.style.width = width + '%'; 
+				elem.innerHTML = width * 1  + '%';
+			}
+		}
+	}
+	function finish() {
+		document.getElementById("myProgress").style.visibility="visible";
+		var elem = document.getElementById("myBar");   
+		var width = 99;
+		var id = setInterval(frame, 100);
+		function frame() {
+			if (width >= 100) {
+				clearInterval(id);
+			} else {
+				width++; 
+				elem.style.width = width + '%'; 
+				elem.innerHTML = width * 1  + '%';
+			}
+		}
+	}
+	
 	function displayLink(){
 		var fileName = "{{uploaded_file_url}}"; 
 		var split = fileName.split("/");
@@ -158,12 +184,39 @@ function closeNav() {
 		photo = photo + "_recolored.png"
 		filePath = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3] + "/" + photo;
 		
-		document.getElementById("test").setAttribute("href",filePath);
-		document.getElementById("test").style.visibility="visible";
+		window.location.href = filePath;
 		
 	}
 	
 	</script>
+
+
+<html>
+<body>
+  <form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+    <input type="file" id="uploadFile" name="myfile">
+    <button type="submit" onclick="move()">Upload</button>
+  </form>
+  <div class="transbox">
+    <div class="a">
+      <div class="center">
+        <p>Once you click upload, it will take approximately one minute to recolor your photo, so please be patient!</p>
+        <p>works for all sized photos, but please note that square photos yield better results </p>
+      </div>
+    </div>
+  </div>
+  <div>
+  <div id="myProgress" style="visibility: hidden;">
+	<div id="myBar">0%</div>
+  </div>
+	
+  </div>
+  {% if uploaded_file_url %}
+    <script>finish();</script>
+	<button onclick="displayLink()">Display photo!</button>
+  {% endif %}
+
 </body>
 </html>
 
