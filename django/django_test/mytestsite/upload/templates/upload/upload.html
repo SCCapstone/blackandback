@@ -114,13 +114,12 @@ function closeNav() {
 </body>
 </html>
 
-{% load static %}
-
-{% block content %}
+<html>
+<body>
   <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="myfile">
-    <button type="submit">Upload</button>
+  {% csrf_token %}
+    <input type="file" id="uploadFile" name="myfile">
+    <button type="submit" onclick="show()">Upload</button>
   </form>
   <div class="transbox">
     <div class="a">
@@ -130,18 +129,52 @@ function closeNav() {
       </div>
     </div>
   </div>
+	<a id="test" href="" style="visibility: hidden;">See your photo!</a>
   {% if uploaded_file_url %}
-    <div class="a">Your photo has been recolored! thank you for using our service!</div>
-	<a href = "/upload/files/img_0.png"> your image </a>
+	<button onclick="displayLink()">Display photo link!</button>
   {% endif %}
 
-{% endblock %}
+	<script>
+	
+	function show(){
+		var filePath = "/upload/files/" + "{{ user.username }}" + "/";
+		var fileName = document.getElementById("uploadFile").value.split("\\")[2];
+		fileName = fileName.replace(/\..+$/, '');
+		fileName = fileName + "_recolored.png";
+		
+		var pictureLink = filePath + fileName;
+		document.getElementById("test").setAttribute("href",pictureLink);
+		
+	}
+	function changeVisibility(){
+		document.getElementById("test").style.visibility ="visible";
+	}
+	
+	function displayLink(){
+		var fileName = "{{uploaded_file_url}}"; 
+		var split = fileName.split("/");
+		var photo = split[4];
+		photo = photo.replace(/\..+$/, '');
+		photo = photo + "_recolored.png"
+		filePath = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3] + "/" + photo;
+		
+		document.getElementById("test").setAttribute("href",filePath);
+		document.getElementById("test").style.visibility="visible";
+		
+	}
+	
+	</script>
+</body>
+</html>
+
+
+
 <html>
   <head>
     <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5c059a194b87f60011595c36&product=inline-share-buttons' async='async'></script>
   </head>
   <body>
-    <p>share youre recolored picture with your friends</p>
+    <p>share your recolored picture with your friends</p>
     <div class="sharethis-inline-share-buttons"></div>
   </body>
 </html>
