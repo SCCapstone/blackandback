@@ -90,7 +90,6 @@ div.transbox {
   <a href="/accounts/login">Login</a>
   <a href="#">Profile</a>
   <a href="/upload">Upload</a>
-  <a href="/share">Share</a>
   <a href="/top_photos">Top Photos</a>
   <a href="/aboutus">About Us</a>
   <a href="/contact">Contact Us</a>
@@ -137,6 +136,12 @@ function closeNav() {
   {% endif %}
 
 {% endblock %}
-
-
-
+<html>
+  <head>
+    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5c059a194b87f60011595c36&product=inline-share-buttons' async='async'></script>
+  </head>
+  <body>
+    <p>share youre recolored picture with your friends</p>
+    <div class="sharethis-inline-share-buttons"></div>
+  </body>
+</html>

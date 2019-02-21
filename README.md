@@ -2,7 +2,7 @@
 
 Web-based automatic photo colorizer. Users input a black and white photo and our program colors that photo without any human help.
 
-# Getting Started 
+# Getting Started
 
 ## Prerequisites
 
@@ -34,3 +34,19 @@ A Windows setup is possible, but this software is intended to be run on a Linux 
 * [Allison Rogers](https://github.com/allisonrrogers)
 * [Christian Tarque](https://github.com/christiantarque)
 * [Connor Taylor](https://github.com/connorrt)
+
+#Testing
+
+Must be using chrome browser and have chromedriver and selenium installed
+
+Run unit tests by using commands:
+cd blackandback/django/django_test/mytestsite
+python3 manage.py test
+
+Run behavioral tests with the following commands:
+cd blackandback/django/django_test/mytestsite
+python3 manage.py runserver
+
+then in a separate terminal window:
+cd blackandback/django/django_test/mytestsite/test
+./behavior_test.py
