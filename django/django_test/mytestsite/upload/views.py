@@ -5,22 +5,18 @@ from .recolorMod import recolorNet
 from django.http import HttpResponse
 import os, shutil
 
-username = 'crdavis'
-
-def clearDirs():
-	for filename in os.listdir('upload/files/'):
-		os.remove('upload/files/'+ filename)
+username = ''
 def upload(request):
 	if request.method == 'POST' and request.FILES['myfile']:
-		filepath = "upload/files/"
-		if os.path.exists(filepath):
-			clearDirs()
+		username = request.user.username
+		filepath = "upload/files/" + username + "/"
 		myfile = request.FILES['myfile']
 		fs = FileSystemStorage()
-		filename = fs.save(myfile.name, myfile)
-		uploaded_file_url = username + fs.url(filename)
-		recolorNet.runNN(username)
+		filename = fs.save(username + "/" + myfile.name, myfile)
+		uploaded_file_url = fs.url(filename)
+		recolorNet.runNN(username,myfile.name)
 		return render(request, 'upload/upload.html', {
 			'uploaded_file_url': uploaded_file_url
 		})
 	return render(request, 'upload/upload.html')
+	
