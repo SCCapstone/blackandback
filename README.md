@@ -16,6 +16,7 @@ Running this code locally requires the following software:
     [social-auth-app-django]
     [scikit-image]
     [pillow]  
+    [progrssbar.js]
 
 Once you have all the prerequisite software installed, go to the *mysite* directory and start the server using
 
