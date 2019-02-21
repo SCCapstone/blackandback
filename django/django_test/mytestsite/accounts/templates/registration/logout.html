@@ -1,0 +1,9 @@
+{% if request.user %}
+    <a href="{% url 'main:logout' %}">
+        Выход
+    </a>
+{% else %}
+    <a href="{% url 'main:registration' %}">
+        Регистрация
+    </a>
+{% endif%}  
