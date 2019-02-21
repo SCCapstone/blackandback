@@ -1,0 +1,10 @@
+<html>
+    <div class="page-header">
+        <div class="user-name">
+            {% if not user.is_anonymous %}
+            <strong>Logged as:&nbsp;</strong> {{user}} &nbsp;
+            <a href="/logout" title="Log out"><span class="fa fa-sign-out"></span></a>
+            {% endif %}
+        </div>
+    </div>
+</html>
