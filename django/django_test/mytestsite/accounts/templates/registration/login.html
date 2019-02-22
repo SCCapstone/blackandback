@@ -63,37 +63,78 @@ body {
   .sidebar a {font-size: 18px;}
 }
 </style>
+
+{% block content %}
+{% if user.is_authenticated %}
+  <h1 style="text-align:right">Welcome {{ user.username }}!</h1>
+  <html>
+      <body>
+        <div id="mySidebar" class="sidebar">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+          <a href="/">Home</a>
+          <a href="/accounts/logout">Logout</a>
+          <a href="#">Profile</a>
+          <a href="/upload">Upload</a>
+          <a href="/top_photos">Top Photos</a>
+          <a href="/aboutus">About Us</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+        
+        <div id="main">
+          <button class="openbtn" onclick="openNav()">☰</button>  
+        </div>
+        
+        <script>
+        function openNav() {
+          document.getElementById("mySidebar").style.width = "250px";
+          document.getElementById("main").style.marginLeft = "250px";
+        }
+        
+        function closeNav() {
+          document.getElementById("mySidebar").style.width = "0";
+          document.getElementById("main").style.marginLeft= "0";
+        }
+        </script>  
+      </body>
+    </html>
+{% else %}
+  <div class="c">
+  <p>You are not logged in, log in to recolor a photo</p>
+  <html>
+    <body>
+      <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="/">Home</a>
+        <a href="/accounts/login">Login</a>
+        <a href="#">Profile</a>
+        <a href="/">Upload</a>
+        <a href="/top_photos">Top Photos</a>
+        <a href="/aboutus">About Us</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      
+      <div id="main">
+        <button class="openbtn" onclick="openNav()">☰</button>  
+      </div>
+      
+      <script>
+      function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+      }
+      </script>  
+    </body>
+  </html>
+{% endif %}
+{% endblock %}
+
 </head>
-<body>
 
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="/">Home</a>
-  <a href="/accounts/login">Login</a>
-  <a href="#">Profile</a>
-  <a href="/upload">Upload</a>
-  <a href="/top_photos">Top Photos</a>
-  <a href="/aboutus">About Us</a>
-  <a href="/contact">Contact Us</a>
-</div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰ Toggle Sidebar</button>
-</div>
-
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
-
-</body>
 </html>
 
 <html>
