@@ -78,7 +78,7 @@ body {
           <a href="/accounts/logout">Logout</a>
           <a href="#">Profile</a>
           <a href="/upload">Upload</a>
-          <a href="/top_photos">Top Photos</a>
+          <a href="/featured_photos">Featured Photos</a>
           <a href="/aboutus">About Us</a>
           <a href="/contact">Contact Us</a>
         </div>
@@ -111,7 +111,7 @@ body {
         <a href="/accounts/login">Login</a>
         <a href="#">Profile</a>
         <a href="/">Upload</a>
-        <a href="/top_photos">Top Photos</a>
+        <a href="/featured_photos">Featured Photos</a>
         <a href="/aboutus">About Us</a>
         <a href="/contact">Contact Us</a>
       </div>
@@ -151,14 +151,18 @@ body {
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
 </head>
+<script>
+  var filePath = "/upload/files/" + "{{ user.username }}" + "/";
+</script>
+
 <body>
     <center>
-        <h1>Top Photos</h1>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{% static '' %}">
+        <h1>Featured Photos</h1>
+        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="/upload/files/account111/6v14hm.jpg">
         <p style="margin-top : 150px;" ></p>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{% static '' %}">
+        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="/upload/files/account111/6v14hm.jpg">
         <p style="margin-top : 150px;"></p>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{% static '' %}">
+        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="/upload/files/account111/6v14hm.jpg">
         <p style="margin-top : 150px;"></p>
         <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{% static '' %}">
         <p style="margin-top : 150px;"></p>
