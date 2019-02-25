@@ -151,18 +151,22 @@ body {
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
 </head>
-<script>
-  var filePath = "/upload/files/" + "{{ user.username }}" + "/";
-</script>
+
 
 <body>
+    <script>
+        var filePath = "/upload/files/" + "{{ user.username }}" + "/";
+        var filePath1 = document.getElementById("")
+        var fileName = "6v14hm"
+    </script>
     <center>
         <h1>Featured Photos</h1>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="/upload/files/account111/6v14hm.jpg">
+        
+        <img src="{% static '' %}" style="margin-right : 150px;"> <img src=>
         <p style="margin-top : 150px;" ></p>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="/upload/files/account111/6v14hm.jpg">
+        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="/upload/files/{{user.username}}/6v14hm_recolored.png">
         <p style="margin-top : 150px;"></p>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="/upload/files/account111/6v14hm.jpg">
+        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{{user.username}}">
         <p style="margin-top : 150px;"></p>
         <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{% static '' %}">
         <p style="margin-top : 150px;"></p>
