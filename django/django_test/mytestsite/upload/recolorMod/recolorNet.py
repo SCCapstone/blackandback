@@ -159,24 +159,23 @@ class RecolorNN(object):
 			json_file.close()
 	
 	
-	def resize_image(self,path):
-		outfile = 'upload/files/output.jpg'
+	def resize_image(self,path, username):
+		outfile = 'upload/files/' + username + '/output.jpg'
 		im = Image.open(path)
 		im = im.resize( (256,256), Image.ANTIALIAS)
 		return im
 		
-	def makePredictions(self,username):
+	def makePredictions(self,username,recolorFile):
 	#Make predictions on validation images
 		FILE_DIR = ''
 		if self.saveNotFound :
 			FILE_DIR = 'upload/recolorMod/test/'
 		else:
-			FILE_DIR = 'upload/files/'
+			FILE_DIR = 'upload/files/' + username + "/" + recolorFile
 	
 		
-		for filename in os.listdir(FILE_DIR):
-			resized_image = self.resize_image(FILE_DIR + filename)
-			self.color_me.append(img_to_array(resized_image)) #work here, maybe scratch load_img 
+		resized_image = self.resize_image(FILE_DIR, username)
+		self.color_me.append(img_to_array(resized_image)) #work here, maybe scratch load_img 
 		self.color_me = np.array(self.color_me, dtype=float)
 		self.color_me = 1.0/255*self.color_me
 		self.color_me = gray2rgb(rgb2gray(self.color_me))
@@ -189,23 +188,24 @@ class RecolorNN(object):
 		self.output = self.model.predict([self.color_me, self.color_me_embed])
 		self.output = self.output * 128
 
-	def outputColors(self, username):
+	def outputColors(self, username, recolorFile):
 		# Output colorizations
 		for i in range(len(self.output)):
 			cur = np.zeros((256, 256, 3))
 			cur[:,:,0] = self.color_me[i][:,:,0]
 			cur[:,:,1:] = self.output[i]
-			imsave("upload/files/" + "img_"+str(i)+".png", lab2rgb(cur))	
-def runNN(username):
+			recolorFile = os.path.splitext(recolorFile)[0] 
+			imsave("upload/files/" + username + "/" + recolorFile + "_recolored.png" , lab2rgb(cur))	
+def runNN(username,recolorFile):
 	NN = RecolorNN()
 	NN.loadWeights()
 	NN.loadTrainFiles()
 	NN.buildLayers()
 	NN.trainModel()
 	NN.saveModel()
-	NN.makePredictions(username)
+	NN.makePredictions(username,recolorFile)
 	NN.testModel()
 	print("Outputting images")
-	NN.outputColors(username)
+	NN.outputColors(username, recolorFile)
 	print("Outputted images")
 

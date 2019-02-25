@@ -16,6 +16,7 @@ Running this code locally requires the following software:
     [social-auth-app-django]
     [scikit-image]
     [pillow]  
+    [progrssbar.js]
 
 Once you have all the prerequisite software installed, go to the *mysite* directory and start the server using
 
@@ -37,7 +38,7 @@ A Windows setup is possible, but this software is intended to be run on a Linux 
 
 #Testing
 
-Must be using chrome browser and have chromedriver and selenium installed
+Must be using chrome browser and have chromedriver (in path) and selenium installed
 
 Run unit tests by using commands:
 cd blackandback/django/django_test/mytestsite
