@@ -3,11 +3,11 @@
 <!-- <img src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a> -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <head>
+<head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Home - Index</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
-
+    
     <!-- PAGE STYLES -->
     <style>
         body {
@@ -18,8 +18,6 @@
           text-align: right;
         }
 
-
-
         #welcome {
           display: flex;
         }
@@ -27,14 +25,25 @@
         #logo {
           display: flex;
         }
-
+        .button {
+                background-color: rgb(44, 24, 223);
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+              }
     </style>
 
     <!-- SIDEBAR STYLES  -->
     <style>
 
         body {
-          font-family: "Lato", sans-serif;
+          background-color:#f8f7f7
         }
 
         .sidebar {
@@ -81,7 +90,7 @@
         }
 
         .openbtn:hover {
-          background-color: #444;
+          background-color: rgb(3, 3, 3);;
         }
 
         #main {
@@ -93,27 +102,41 @@
           .sidebar {padding-top: 15px;}
           .sidebar a {font-size: 18px;}
         }
+        .center {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
+        }
+
+        .right{
+        padding-right:3px;
+        }
+        
+        .moveright{
+        text-align: right;
+        }
+
+        * {
+        box-sizing: border-box;
+        }
+
+        .column {
+          float: left;
+          width: 50%;
+          padding: 5px;
+        }
+
+        .row::after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+
     </style>
   </head>
 
   <body>
-
-        <div>
-          <div id="mySidebar" class="sidebar">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-            <a href="/">Home</a>
-            <a href="/accounts/login">Login</a>
-            <a href="/profile">Profile</a>
-            <a href="/upload">Upload</a>
-            <a href="/top_photos">Top Photos</a>
-            <a href="/aboutus">About Us</a>
-            <a href="/contact">Contact Us</a>
-          </div>
-
-          <div id="main">
-            <button class="openbtn" onclick="openNav()">☰ Toggle Sidebar</button>
-          </div>
-        </div>
 
 
         <div class="container">
@@ -121,10 +144,86 @@
           <div id="welcome">
             {% block content %}
             {% if user.is_authenticated %}
-              <h1 style="text-align:right">Welcome {{ user.username }}!</h1>
+              <div>
+                  <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                      ×
+                    </a>
+                    <a href="/">
+                      Home
+                    </a>
+                    <a href="{% url 'logout' %}?next=/">
+                      Logout
+                    </a>
+                    <a href="/profile">
+                      Profile
+                    </a>
+                    <a href="/upload">
+                      Upload
+                    </a>
+                    <a href="/top_photos">
+                      Top Photos
+                    </a>
+                    <a href="/aboutus">
+                      About Us
+                    </a>
+                    <a href="/contact">
+                      Contact Us
+                    </a>
+                  </div>
+        
+                  <div id="main">
+                    <button class="openbtn" onclick="openNav()">
+                      ☰
+                    </button>
+                  </div>
+                </div>
+                <div class="moveright">
+                  <b>
+                    Welcome {{ user.username }}!
+                  </b>
+                </div>
             {% else %}
-              <div class="c">
-              <p>You are not logged in</p>
+                  <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                      ×
+                    </a>
+                    <a href="/">
+                      Home
+                    </a>
+                    <a href="/accounts/login">
+                      Login
+                    </a>
+                    <a href="/profile">
+                      Profile
+                    </a>
+                    <a href="/">
+                      Upload
+                    </a>
+                    <a href="/top_photos">
+                      Top Photos
+                    </a>
+                    <a href="/aboutus">
+                      About Us
+                    </a>
+                    <a href="/contact">
+                      Contact Us
+                    </a>
+                  </div>
+        
+                  <div id="main">
+                    <button class="openbtn" onclick="openNav()">
+                      ☰
+                    </button>
+                  </div>
+                </div>
+                <div class="moveright">
+                  <b>
+                    <font size="4">
+                      You are not logged in, login to recolor
+                    </font>
+                  </b>
+                </div>
             {% endif %}
             {% endblock %}
           </div>
@@ -146,3 +245,59 @@
         </script>
   </body>
 </html>
+
+<html>
+  <body>
+  <b class="center">
+    <font size="5" color="black">
+    Whats Going On here: We turn this (Black and white photo).... Into this(A colorized version of it)
+    </font>
+  </b>
+  <div class="row">
+    <div class="column">
+      <img src="https://demos.algorithmia.com/colorize-photos/public/images/fire.png" alt="Black and white" style="width:400px;height:400px;" class="center">
+    </div>
+    <div class="column">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/200px-Fire_breathing_2_Luc_Viatour.jpg" alt="colorized" style="width:400px;height:400px;" class="center">
+    </div>
+  </div>
+  </body>
+</html>
+
+  <html>
+    <head>
+    <style>
+    .button {
+      background-color: rgb(46, 116, 245);
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+    .center {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
+        }
+
+        .right{
+        padding-left:3px;
+        }
+    </style>
+    </head>
+    <body>
+      <div class="center">
+        <a href="/aboutus" class="button">
+          Learn more about us
+        </a>
+      </div>
+    </body>
+  </html>

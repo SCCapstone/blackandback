@@ -87,14 +87,30 @@
   <html>
       <body>
         <div id="mySidebar" class="sidebar">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-          <a href="/">Home</a>
-          <a href="/accounts/logout">Logout</a>
-          <a href="/profile">Profile</a>
-          <a href="/upload">Upload</a>
-          <a href="/top_photos">Top Photos</a>
-          <a href="/aboutus">About Us</a>
-          <a href="/contact">Contact Us</a>
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+            ×
+          </a>
+          <a href="/">
+            Home
+          </a>
+          <a href="{% url 'logout' %}?next=/aboutus">
+            Logout
+          </a>
+          <a href="/profile">
+            Profile
+          </a>
+          <a href="/upload">
+            Upload
+          </a>
+          <a href="/top_photos">
+            Top Photos
+          </a>
+          <a href="/aboutus">
+            About Us
+          </a>
+          <a href="/contact">
+            Contact Us
+          </a>
         </div>
 
         <div id="main">
@@ -120,14 +136,30 @@
   <html>
     <body>
       <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="/">Home</a>
-        <a href="/accounts/login">Login</a>
-        <a href="/profile">Profile</a>
-        <a href="/">Upload</a>
-        <a href="/top_photos">Top Photos</a>
-        <a href="/aboutus">About Us</a>
-        <a href="/contact">Contact Us</a>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+          ×
+        </a>
+        <a href="/">
+          Home
+        </a>
+        <a href="/accounts/login">
+          Login
+        </a>
+        <a href="/profile">
+          Profile
+        </a>
+        <a href="/">
+          Upload
+        </a>
+        <a href="/top_photos">
+          Top Photos
+        </a>
+        <a href="/aboutus">
+          About Us
+        </a>
+        <a href="/contact">
+          Contact Us
+        </a>
       </div>
 
       <div id="main">

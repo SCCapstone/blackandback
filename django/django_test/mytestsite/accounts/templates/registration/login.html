@@ -68,6 +68,17 @@
       .sidebar {padding-top: 15px;}
       .sidebar a {font-size: 18px;}
     }
+    .txtcolor {
+      color: white;
+    }
+
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
+
 </style>
 <!-- PAGE STYLES -->
 <style>
@@ -84,7 +95,7 @@
         <div id="mySidebar" class="sidebar">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
           <a href="/">Home</a>
-          <a href="/accounts/logout">Logout</a>
+          <a href="{% url 'logout' %}?next=/">Logout</a>
           <a href="/profile">Profile</a>
           <a href="/upload">Upload</a>
           <a href="/top_photos">Top Photos</a>
@@ -111,7 +122,7 @@
     </html>
 {% else %}
   <div class="c">
-  <p>You are not logged in, log in to recolor a photo</p>
+  <p class="txtcolor">You are not logged in, log in to recolor a photo</p>
   <html>
     <body>
       <div id="mySidebar" class="sidebar">
@@ -154,12 +165,20 @@
 body {
   background-image :url(https://www.headdies.com/wp-content/uploads/2014/11/dark-black-website-background.jpg);
 }
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+    
 </style>
-
-<h2><font color="white">Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
-<input type="button" value="Create a New Account" onclick="window.location.href='/accounts/signup/'" />
+<div class="center">
+  <h2><font color="white">Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  <input type="button" value="Create a New Account" onclick="window.location.href='/accounts/signup/'" />
+</div>

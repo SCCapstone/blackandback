@@ -97,24 +97,6 @@
 
     <body>
 
-        <div>
-          <div id="mySidebar" class="sidebar">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-            <a href="/">Home</a>
-            <a href="/accounts/login">Login</a>
-            <a href="/profile">Profile</a>
-            <a href="/upload">Upload</a>
-            <a href="/share">Share</a>
-            <a href="/top_photos">Top Photos</a>
-            <a href="/aboutus">About Us</a>
-            <a href="/contact">Contact Us</a>
-          </div>
-
-          <div id="main">
-            <button class="openbtn" onclick="openNav()">☰ Toggle Sidebar</button>
-          </div>
-        </div>
-
         <!-- CONTENT -->
         <h1 style="color:white;">PROFILE PAGE WOO!!</h1>
 
@@ -127,6 +109,36 @@
                           {% block content %}
                           {% if user.is_authenticated %}
                             Hi {{ user.username }}!
+                            <div>
+                              <div id="mySidebar" class="sidebar">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                                  ×
+                                </a>
+                                <a href="/">
+                                  Home
+                                </a>
+                                <a href="{% url 'logout' %}?next=/profile">
+                                  Logout
+                                </a>
+                                <a href="/upload">
+                                  Upload
+                                </a>
+                                <a href="/top_photos">
+                                  Top Photos
+                                </a>
+                                <a href="/aboutus">
+                                  About Us
+                                </a>
+                                <a href="/contact">
+                                  Contact Us
+                                </a>
+                              </div>
+                              <div id="main">
+                                <button class="openbtn" onclick="openNav()">
+                                  ☰
+                                </button>
+                              </div>
+                            </div>
                             <div class="control"><p><a class="button" href="{% url 'logout' %}?next=/profile">logout</a></p></div>
 
                             <form class="field" method="post" enctype="multipart/form-data">
@@ -172,7 +184,37 @@
                                 </div>
 
                               {% else %}
-                            <p>You are not logged in</p>
+                              <div id="mySidebar" class="sidebar">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                                  ×
+                                </a>
+                                <a href="/">
+                                  Home
+                                <a href="/">
+                                  Upload
+                                </a>
+                                <a href="/top_photos">
+                                  Top Photos
+                                </a>
+                                <a href="/aboutus">
+                                  About Us
+                                </a>
+                                <a href="/contact">
+                                  Contact Us
+                                </a>
+                              </div>
+                    
+                              <div id="main">
+                                <button class="openbtn" onclick="openNav()">
+                                  ☰
+                                </button>
+                              </div>
+                            </div>
+                            <div class="moveright">
+                              <b>
+                                You are not logged in, login to recolor
+                              </b>
+                            </div>
                             <a class="button" href="{% url 'login' %}">login</a>
                           {% endif %}
                           {% endblock %}
