@@ -1,86 +1,94 @@
+
+<!DOCTYPE html>
 <html>
+
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOME - about page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
+
+<!-- SIDEBAR STYLES -->
 <style>
-body {
-    background-image: url(https://png.pngtree.com/thumb_back/fw800/back_pic/04/24/79/605836ce2fed899.jpg);
-}
-body {
-  font-family: "Lato", sans-serif;
-  color:black;
-}
-div.transbox {
-  margin: 20px;
-  background-color: #f7f2f2;
-  border: 1px solid black;
-  opacity: 0.7;
-  filter: alpha(opacity=60);
-}
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
+    body {
+        background-image: url(https://png.pngtree.com/thumb_back/fw800/back_pic/04/24/79/605836ce2fed899.jpg);
+    }
+    body {
+      font-family: "Lato", sans-serif;
+      color:black;
+    }
+    div.transbox {
+      margin: 20px;
+      background-color: #f7f2f2;
+      border: 1px solid black;
+      opacity: 0.7;
+      filter: alpha(opacity=60);
+    }
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
 
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #f1f5f2;
-  display: block;
-  transition: 0.3s;
-}
+    .sidebar a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #f1f5f2;
+      display: block;
+      transition: 0.3s;
+    }
 
-.sidebar a:hover {
-  color: #0000e6;
-}
+    .sidebar a:hover {
+      color: #0000e6;
+    }
 
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 23px;
-  font-size: 40px;
-  margin-left: 50px;
-}
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 23px;
+      font-size: 40px;
+      margin-left: 50px;
+    }
 
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+    }
 
-.openbtn:hover {
-  background-color: #444;
-}
+    .openbtn:hover {
+      background-color: #444;
+    }
 
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+    }
 
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
+    @media screen and (max-height: 450px) {
+      .sidebar {padding-top: 15px;}
+      .sidebar a {font-size: 18px;}
+    }
 </style>
 </head>
+
 <body>
 
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="/">Home</a>
   <a href="/accounts/login">Login</a>
-  <a href="#">Profile</a>
+  <a href="/profile">Profile</a>
   <a href="/upload">Upload</a>
   <a href="/share">Share</a>
   <a href="/top_photos">Top Photos</a>
@@ -91,7 +99,24 @@ div.transbox {
   <button class="openbtn" onclick="openNav()">☰ Toggle Sidebar</button>
 </div>
 
+<!-- CONTENT -->
+
+<div class="container">
+    <h1><strong>ABOUT US</strong></h1>
+</div>
+<div class="box">
+  <span>Photography can convey the experience of being in a time and place better than any verbal
+    description ever could. Pictures of relatives bring back fond memories; pictures of historical events
+    help us understand the time's zeitgeist. Older photos provide access to more distant moments
+    , moments which we are less familiar with, but when we look at black and white photos,
+    we are missing an entire dimension. Many old photographs have been hand-colorized,
+    but doing so requires time and artistic talent. The goal of Black and Back is to change that.
+    Black and Back colorizes black and white photos using machine learning,
+    making colorization accessible to anyone with an Internet connection.</span>
+</div>
+
 <script>
+// SIDEBAR FUNCTIONS
 function openNav() {
   document.getElementById("mySidebar").style.width = "250px";
   document.getElementById("main").style.marginLeft = "250px";
@@ -105,30 +130,3 @@ function closeNav() {
 
 </body>
 </html>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AboutUS</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</head>
-<body>
-<center>
-    <h1>ABOUT US</h1>
-</center>
-<div class="transbox">    
-  <span>Photography can convey the experience of being in a time and place better than any verbal 
-    description ever could. Pictures of relatives bring back fond memories; pictures of historical events 
-    help us understand the time's zeitgeist. Older photos provide access to more distant moments
-    , moments which we are less familiar with, but when we look at black and white photos, 
-    we are missing an entire dimension. Many old photographs have been hand-colorized, 
-    but doing so requires time and artistic talent. The goal of Black and Back is to change that. 
-    Black and Back colorizes black and white photos using machine learning, 
-    making colorization accessible to anyone with an Internet connection.</span>
-</div>
-</body>
-</html>
-

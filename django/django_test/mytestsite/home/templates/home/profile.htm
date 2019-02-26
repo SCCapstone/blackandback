@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>HOME - Profile Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
+
+        <!-- PAGE STYLES -->
+        <style>
+            body {
+              background-color:#a6a6a6;
+            }
+
+            div.c {
+              text-align: right;
+            }
+
+
+
+            #welcome {
+              display: flex;
+            }
+
+            #logo {
+              display: flex;
+            }
+
+        </style>
+
+        <!-- SIDEBAR STYLES  -->
+        <style>
+
+            body {
+              font-family: "Lato", sans-serif;
+            }
+
+            .sidebar {
+              height: 100%;
+              width: 0;
+              position: fixed;
+              z-index: 1;
+              top: 0;
+              left: 0;
+              background-color: #111;
+              overflow-x: hidden;
+              transition: 0.5s;
+              padding-top: 60px;
+            }
+
+            .sidebar a {
+              padding: 8px 8px 8px 32px;
+              text-decoration: none;
+              font-size: 25px;
+              color: #f1f5f2;
+              display: block;
+              transition: 0.3s;
+            }
+
+            .sidebar a:hover {
+              color: #0000e6;
+            }
+
+            .sidebar .closebtn {
+              position: absolute;
+              top: 0;
+              right: 23px;
+              font-size: 40px;
+              margin-left: 50px;
+            }
+
+            .openbtn {
+              font-size: 20px;
+              cursor: pointer;
+              background-color: #111;
+              color: rgb(255, 255, 255);
+              padding: 10px 15px;
+              border: none;
+            }
+
+            .openbtn:hover {
+              background-color: #444;
+            }
+
+            #main {
+              transition: margin-left .5s;
+              padding: 16px;
+            }
+
+            @media screen and (max-height: 450px) {
+              .sidebar {padding-top: 15px;}
+              .sidebar a {font-size: 18px;}
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div>
+          <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <a href="/">Home</a>
+            <a href="/accounts/login">Login</a>
+            <a href="/profile">Profile</a>
+            <a href="/upload">Upload</a>
+            <a href="/share">Share</a>
+            <a href="/top_photos">Top Photos</a>
+            <a href="/aboutus">About Us</a>
+            <a href="/contact">Contact Us</a>
+          </div>
+
+          <div id="main">
+            <button class="openbtn" onclick="openNav()">☰ Toggle Sidebar</button>
+          </div>
+        </div>
+
+        <!-- CONTENT -->
+        <h1 style="color:white;">PROFILE PAGE WOO!!</h1>
+
+        <div class="container">
+
+
+                        <!-- displays login username -->
+                        this is the profile page!
+
+                          {% block content %}
+                          {% if user.is_authenticated %}
+                            Hi {{ user.username }}!
+                            <div class="control"><p><a class="button" href="{% url 'logout' %}?next=/profile">logout</a></p></div>
+
+                            <form class="field" method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="control"><input class="input" type="file" name="myfile"></div>
+                              <div class="control"><button class="button" type="submit">Upload</button></div>
+                            </form>
+
+
+
+
+                                <div class="footer">
+                                  <p>dis da text about user profiles n stuff </p>
+                                  {% if profile_url %}
+                                  <figure class="image is-128x128">
+                                  <img src="{{ profile_url }}" style="width:100px;height:100px;">
+                                </figure>
+                                  {% endif %}
+
+                                  {% if uploaded_file_url %}
+                                    <div class="a">profile pic uploaded</div>
+                                  {% endif %}
+                                </div>
+
+
+                                  <!-- if you somehow create another img tag with the {{file_url}}
+                                  thingy in it, add it to another div with class 'column'
+                                  for as many columns as you want -->
+                                  <div class="columns">
+                                  {% for file in 'upload/files/'  %}
+
+                                      <div class="column">
+                                        <p>images... </p>
+                                        <figure class="image is-128x128">
+                                        <img src="{{ file_url }}" alt="">
+                                        </figure>
+                                      </div>
+
+                                    <!-- {% if user.username in file %} -->
+
+                                    <!-- {% endif %} -->
+                                  {% endfor %}
+                                </div>
+
+                              {% else %}
+                            <p>You are not logged in</p>
+                            <a class="button" href="{% url 'login' %}">login</a>
+                          {% endif %}
+                          {% endblock %}
+
+            </div>
+
+
+        <script>
+        // SIDEBAR FUNCTIONS
+        function openNav() {
+          document.getElementById("mySidebar").style.width = "250px";
+          document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+          document.getElementById("mySidebar").style.width = "0";
+          document.getElementById("main").style.marginLeft= "0";
+        }
+        </script>
+
+    </body>
+</html>
