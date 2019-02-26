@@ -51,7 +51,7 @@ body {
 }
 
 .openbtn:hover {
-  background-color: #444;
+  background-color: rgb(247, 242, 242);
 }
 
 #main {
@@ -73,13 +73,19 @@ body {
 <html>
 <style>
 body {
-    background-color:#a6a6a6;
+    background-color:#f8f7f7;
 }
 div.c {
   text-align: right;
 } 
-</style>
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
+</style>
 {% block content %}
 {% if user.is_authenticated %}
   <h1 style="text-align:right">Welcome {{ user.username }}!</h1>
@@ -149,5 +155,35 @@ div.c {
 {% endif %}
 {% endblock %}
 </head>
+<html>
+  <body>
+  <h2 class="center">Whats Going On here: </h2>
+  <img src="https://demos.algorithmia.com/colorize-photos/public/images/fire.png" alt="Black and white" width="460" height="345" class="center">
+  <h2 class="center">We turn this (Black and white photo).... Into this(A colorized version of it)</h2>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/200px-Fire_breathing_2_Luc_Viatour.jpg" alt="colorized" width="460" height="345" class="center">
+  </body>
+  </html>
+
+  <html>
+    <head>
+    <style>
+    .button {
+      background-color: rgb(44, 24, 223);
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    </style>
+    </head>
+    <body>
+    <a href="/aboutus" class="button" class="center">Learn more about us</a>
+    </body>
+    </html>
 
 
