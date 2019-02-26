@@ -1,67 +1,79 @@
+
+<!DOCTYPE html>
 <html>
+
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOME - login page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
+<!-- SIDEBAR STYLES -->
 <style>
-body {
-  font-family: "Lato", sans-serif;
-}
+    body {
+      font-family: "Lato", sans-serif;
+    }
 
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
 
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #f1f5f2;
-  display: block;
-  transition: 0.3s;
-}
+    .sidebar a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #f1f5f2;
+      display: block;
+      transition: 0.3s;
+    }
 
-.sidebar a:hover {
-  color: #0000e6;
-}
+    .sidebar a:hover {
+      color: #0000e6;
+    }
 
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 23px;
-  font-size: 40px;
-  margin-left: 50px;
-}
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 23px;
+      font-size: 40px;
+      margin-left: 50px;
+    }
 
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+    }
 
-.openbtn:hover {
-  background-color: #444;
-}
+    .openbtn:hover {
+      background-color: #444;
+    }
 
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+    }
 
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
+    @media screen and (max-height: 450px) {
+      .sidebar {padding-top: 15px;}
+      .sidebar a {font-size: 18px;}
+    }
+</style>
+<!-- PAGE STYLES -->
+<style>
+  body {
+      background-image: url(https://www.headdies.com/wp-content/uploads/2014/11/dark-black-website-background.jpg);
+  }
 </style>
 
 {% block content %}
@@ -79,22 +91,22 @@ body {
           <a href="/aboutus">About Us</a>
           <a href="/contact">Contact Us</a>
         </div>
-        
+
         <div id="main">
-          <button class="openbtn" onclick="openNav()">☰</button>  
+          <button class="openbtn" onclick="openNav()">☰</button>
         </div>
-        
+
         <script>
         function openNav() {
           document.getElementById("mySidebar").style.width = "250px";
           document.getElementById("main").style.marginLeft = "250px";
         }
-        
+
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
           document.getElementById("main").style.marginLeft= "0";
         }
-        </script>  
+        </script>
       </body>
     </html>
 {% else %}
@@ -112,22 +124,22 @@ body {
         <a href="/aboutus">About Us</a>
         <a href="/contact">Contact Us</a>
       </div>
-      
+
       <div id="main">
-        <button class="openbtn" onclick="openNav()">☰</button>  
+        <button class="openbtn" onclick="openNav()">☰</button>
       </div>
-      
+
       <script>
       function openNav() {
         document.getElementById("mySidebar").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
       }
-      
+
       function closeNav() {
         document.getElementById("mySidebar").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
       }
-      </script>  
+      </script>
     </body>
   </html>
 {% endif %}
@@ -136,22 +148,3 @@ body {
 </head>
 
 </html>
-
-<html>
-<style>
-body {
-    background-image: url(https://www.headdies.com/wp-content/uploads/2014/11/dark-black-website-background.jpg);
-}
-</style>
-
-<h2><font color="white">Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
-<input type="button" value="Create a New Account" onclick="window.location.href='/accounts/signup/'" />
-
-
-
-

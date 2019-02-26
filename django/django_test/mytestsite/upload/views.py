@@ -19,4 +19,3 @@ def upload(request):
 			'uploaded_file_url': uploaded_file_url
 		})
 	return render(request, 'upload/upload.html')
-	
