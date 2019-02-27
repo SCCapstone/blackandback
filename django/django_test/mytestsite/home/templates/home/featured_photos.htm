@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -158,15 +159,29 @@ body {
         var filePath = "/upload/files/" + "{{ user.username }}" + "/";
         var filePath1 = document.getElementById("")
         var fileName = "6v14hm"
+        var anything = "[\s\S]*"
+        
     </script>
     <center>
-        <h1>Featured Photos</h1>
+        {% load static %}
+        <body data-media-url="{% get_media_prefix %}">
+        {# thing is now /upload/files/ #}
+        {% get_media_prefix as thing %}
         
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src=>
+        <h1>Featured Photos</h1>
+        {% if user.username %}
+        <p>found a user</p>
+        <p>{{document.user}}</p>
+        <p>{{thing}}</p>
+        <p>{{user.username}}</p>
+        <p></p>
+        
+        {% endif %}
+        <img src="/upload/files/{{user.username}}/6v14hm_recolored.png" style="margin-right : 150px;"> <img src="/upload/files/{{user.username}}/6v14hm_recolored.png">
         <p style="margin-top : 150px;" ></p>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="/upload/files/{{user.username}}/6v14hm_recolored.png">
+        <img src="" style="margin-right : 150px;"> <img src="/upload/files/{{user.username}}/6v14hm_recolored.png">
         <p style="margin-top : 150px;"></p>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{{user.username}}">
+        <img src="/upload/files/str/str" style="margin-right : 150px;"> <img src="">
         <p style="margin-top : 150px;"></p>
         <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{% static '' %}">
         <p style="margin-top : 150px;"></p>

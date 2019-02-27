@@ -1,0 +1,162 @@
+﻿Merge remote-tracking branch 'refs/remotes/origin/master' into allison_branch
+
+# Conflicts:
+#	django/django_test/mytestsite/accounts/__pycache__/__init__.cpython-37.pyc
+#	django/django_test/mytestsite/home/__pycache__/__init__.cpython-36.pyc
+#	django/django_test/mytestsite/home/__pycache__/__init__.cpython-37.pyc
+#	django/django_test/mytestsite/home/__pycache__/urls.cpython-36.pyc
+#	django/django_test/mytestsite/home/__pycache__/urls.cpython-37.pyc
+#	django/django_test/mytestsite/home/__pycache__/views.cpython-36.pyc
+#	django/django_test/mytestsite/home/__pycache__/views.cpython-37.pyc
+#	django/django_test/mytestsite/mytestsite/__pycache__/__init__.cpython-36.pyc
+#	django/django_test/mytestsite/mytestsite/__pycache__/__init__.cpython-37.pyc
+#	django/django_test/mytestsite/mytestsite/__pycache__/settings.cpython-36.pyc
+#	django/django_test/mytestsite/mytestsite/__pycache__/settings.cpython-37.pyc
+#	django/django_test/mytestsite/mytestsite/__pycache__/urls.cpython-36.pyc
+#	django/django_test/mytestsite/mytestsite/__pycache__/urls.cpython-37.pyc
+#	django/django_test/mytestsite/mytestsite/__pycache__/wsgi.cpython-36.pyc
+#	django/django_test/mytestsite/mytestsite/__pycache__/wsgi.cpython-37.pyc
+#	django/django_test/mytestsite/upload/__pycache__/__init__.cpython-36.pyc
+#	django/django_test/mytestsite/upload/__pycache__/__init__.cpython-37.pyc
+#	django/django_test/mytestsite/upload/__pycache__/urls.cpython-36.pyc
+#	django/django_test/mytestsite/upload/__pycache__/urls.cpython-37.pyc
+#	django/django_test/mytestsite/upload/__pycache__/views.cpython-36.pyc
+#	django/django_test/mytestsite/upload/__pycache__/views.cpython-37.pyc
+#	django/django_test/mytestsite/upload/recolorMod/__pycache__/__init__.cpython-36.pyc
+#	django/django_test/mytestsite/upload/recolorMod/__pycache__/recolorNet.cpython-36.pyc
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch allison_branch
+# Your branch is up-to-date with 'origin/allison_branch'.
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   .gitignore
+#	modified:   README.md
+#	new file:   django/django_test/mytestsite/accounts/templates/base.html
+#	new file:   django/django_test/mytestsite/accounts/templates/logout.html
+#	modified:   django/django_test/mytestsite/accounts/templates/registration/login.html
+#	new file:   django/django_test/mytestsite/accounts/templates/registration/logout.html
+#	modified:   django/django_test/mytestsite/accounts/templates/signup.html
+#	modified:   django/django_test/mytestsite/accounts/urls.py
+#	modified:   django/django_test/mytestsite/accounts/views.py
+#	deleted:    django/django_test/mytestsite/db.sqlite3
+#	modified:   django/django_test/mytestsite/home/templates/home/aboutus.htm
+#	modified:   django/django_test/mytestsite/home/templates/home/contact.htm
+#	modified:   django/django_test/mytestsite/home/templates/home/index.html
+#	modified:   django/django_test/mytestsite/home/templates/home/top_photos.htm
+#	modified:   django/django_test/mytestsite/mytestsite/urls.py
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/.editorconfig
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/.eslintrc
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/.jscs.json
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/.npmignore
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/.travis.yml
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/Gruntfile.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/LICENSE
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/README.md
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/bower.json
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/api/general.md
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/api/parameters.md
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/api/path.md
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/api/shape.md
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/contributing.md
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/img/animate-call.png
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/img/animate-init.png
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/img/animation.gif
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/index.md
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/docs/pip-requirements.txt
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/karma.conf.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/local-dev/index.html
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/local-dev/main.css
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/local-dev/main.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/mkdocs.yml
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/package.json
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/saucelabs-browsers.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/src/circle.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/src/line.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/src/main.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/src/path.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/src/semicircle.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/src/shape.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/src/square.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/src/utils.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/test/path-behaviour.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/test/shape-behaviour.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/test/test-all.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/test/test-utils.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/test/testem.html
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/testem.json
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/tools/lint.sh
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/tools/release.js
+#	new file:   django/django_test/mytestsite/node_modules/progressbar.js/tools/test.sh
+#	new file:   django/django_test/mytestsite/node_modules/shifty/.codepainterrc
+#	new file:   django/django_test/mytestsite/node_modules/shifty/.jshintrc
+#	new file:   django/django_test/mytestsite/node_modules/shifty/.npmignore
+#	new file:   django/django_test/mytestsite/node_modules/shifty/CONTRIBUTING.md
+#	new file:   django/django_test/mytestsite/node_modules/shifty/Gruntfile.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/LICENSE-MIT
+#	new file:   django/django_test/mytestsite/node_modules/shifty/README.md
+#	new file:   django/django_test/mytestsite/node_modules/shifty/asset/img/forkme.png
+#	new file:   django/django_test/mytestsite/node_modules/shifty/asset/img/shifty-logo-200.png
+#	new file:   django/django_test/mytestsite/node_modules/shifty/asset/img/shifty-logo-600.png
+#	new file:   django/django_test/mytestsite/node_modules/shifty/attachment-demo.html
+#	new file:   django/django_test/mytestsite/node_modules/shifty/attachment-demo2.html
+#	new file:   django/django_test/mytestsite/node_modules/shifty/bower.json
+#	new file:   django/django_test/mytestsite/node_modules/shifty/index.html
+#	new file:   django/django_test/mytestsite/node_modules/shifty/package.json
+#	new file:   django/django_test/mytestsite/node_modules/shifty/redirects/src/shifty.bezier.js.html
+#	new file:   django/django_test/mytestsite/node_modules/shifty/redirects/src/shifty.core.js.html
+#	new file:   django/django_test/mytestsite/node_modules/shifty/redirects/src/shifty.interpolate.js.html
+#	new file:   django/django_test/mytestsite/node_modules/shifty/redirects/src/shifty.token.js.html
+#	new file:   django/django_test/mytestsite/node_modules/shifty/src/shifty.bezier.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/src/shifty.core.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/src/shifty.formulas.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/src/shifty.interpolate.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/src/shifty.intro.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/src/shifty.outro.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/src/shifty.token.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/tests/index.html
+#	new file:   django/django_test/mytestsite/node_modules/shifty/tests/qunit/qunit.css
+#	new file:   django/django_test/mytestsite/node_modules/shifty/tests/qunit/qunit.js
+#	new file:   django/django_test/mytestsite/node_modules/shifty/tests/utils/require.js
+#	new file:   django/django_test/mytestsite/package-lock.json
+#	deleted:    django/django_test/mytestsite/share/admin.py
+#	deleted:    django/django_test/mytestsite/share/apps.py
+#	deleted:    django/django_test/mytestsite/share/migrations/__init__.py
+#	deleted:    django/django_test/mytestsite/share/models.py
+#	deleted:    django/django_test/mytestsite/share/templates/share/base.html
+#	deleted:    django/django_test/mytestsite/share/templates/share/index.html
+#	deleted:    django/django_test/mytestsite/share/tests.py
+#	deleted:    django/django_test/mytestsite/share/urls.py
+#	deleted:    django/django_test/mytestsite/share/views.py
+#	modified:   django/django_test/mytestsite/test/behavior_test.py
+#	new file:   django/django_test/mytestsite/upload/files/crdavis/6v14hm.jpg
+#	new file:   django/django_test/mytestsite/upload/files/crdavis/6v14hm_recolored.png
+#	new file:   django/django_test/mytestsite/upload/files/crdavis/9KfZez.jpg
+#	new file:   django/django_test/mytestsite/upload/files/crdavis/9KfZez_recolored.png
+#	deleted:    django/django_test/mytestsite/upload/files/testImage.jpg
+#	new file:   django/django_test/mytestsite/upload/forms.py
+#	modified:   django/django_test/mytestsite/upload/models.py
+#	modified:   django/django_test/mytestsite/upload/recolorMod/recolorNet.py
+#	new file:   django/django_test/mytestsite/upload/templates/upload/model_form_upload.html
+#	modified:   django/django_test/mytestsite/upload/templates/upload/upload.html
+#	modified:   django/django_test/mytestsite/upload/views.py
+#	deleted:    website/blackandbackwebsite/blackandbackwebsite/__pycache__/__init__.cpython-36.pyc
+#	deleted:    website/blackandbackwebsite/blackandbackwebsite/__pycache__/__init__.cpython-37.pyc
+#	deleted:    website/blackandbackwebsite/blackandbackwebsite/__pycache__/settings.cpython-36.pyc
+#	deleted:    website/blackandbackwebsite/blackandbackwebsite/__pycache__/settings.cpython-37.pyc
+#	deleted:    website/blackandbackwebsite/blackandbackwebsite/__pycache__/urls.cpython-36.pyc
+#	deleted:    website/blackandbackwebsite/blackandbackwebsite/__pycache__/urls.cpython-37.pyc
+#	deleted:    website/blackandbackwebsite/blackandbackwebsite/__pycache__/wsgi.cpython-36.pyc
+#	deleted:    website/blackandbackwebsite/blackandbackwebsite/__pycache__/wsgi.cpython-37.pyc
+#
+
