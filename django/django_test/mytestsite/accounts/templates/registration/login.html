@@ -1,67 +1,90 @@
+
+<!DOCTYPE html>
 <html>
+
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOME - login page</title>
+
+<!-- SIDEBAR STYLES -->
 <style>
-body {
-  font-family: "Lato", sans-serif;
-}
+    body {
+      font-family: "Lato", sans-serif;
+    }
 
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
 
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #f1f5f2;
-  display: block;
-  transition: 0.3s;
-}
+    .sidebar a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #f1f5f2;
+      display: block;
+      transition: 0.3s;
+    }
 
-.sidebar a:hover {
-  color: #0000e6;
-}
+    .sidebar a:hover {
+      color: #0000e6;
+    }
 
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 23px;
-  font-size: 40px;
-  margin-left: 50px;
-}
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 23px;
+      font-size: 40px;
+      margin-left: 50px;
+    }
 
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+    }
 
-.openbtn:hover {
-  background-color: #444;
-}
+    .openbtn:hover {
+      background-color: #444;
+    }
 
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+    }
 
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
+    @media screen and (max-height: 450px) {
+      .sidebar {padding-top: 15px;}
+      .sidebar a {font-size: 18px;}
+    }
+    .txtcolor {
+      color: white;
+    }
+
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
+
+</style>
+<!-- PAGE STYLES -->
+<style>
+  body {
+      background-image: url(https://www.headdies.com/wp-content/uploads/2014/11/dark-black-website-background.jpg);
+  }
 </style>
 
 {% block content %}
@@ -72,62 +95,62 @@ body {
         <div id="mySidebar" class="sidebar">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
           <a href="/">Home</a>
-          <a href="/accounts/logout">Logout</a>
-          <a href="#">Profile</a>
+          <a href="{% url 'logout' %}?next=/">Logout</a>
+          <a href="/profile">Profile</a>
           <a href="/upload">Upload</a>
           <a href="/top_photos">Top Photos</a>
           <a href="/aboutus">About Us</a>
           <a href="/contact">Contact Us</a>
         </div>
-        
+
         <div id="main">
-          <button class="openbtn" onclick="openNav()">☰</button>  
+          <button class="openbtn" onclick="openNav()">☰</button>
         </div>
-        
+
         <script>
         function openNav() {
           document.getElementById("mySidebar").style.width = "250px";
           document.getElementById("main").style.marginLeft = "250px";
         }
-        
+
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
           document.getElementById("main").style.marginLeft= "0";
         }
-        </script>  
+        </script>
       </body>
     </html>
 {% else %}
   <div class="c">
-  <p>You are not logged in, log in to recolor a photo</p>
+  <p class="txtcolor">You are not logged in, log in to recolor a photo</p>
   <html>
     <body>
       <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a href="/">Home</a>
         <a href="/accounts/login">Login</a>
-        <a href="#">Profile</a>
+        <a href="/profile">Profile</a>
         <a href="/">Upload</a>
         <a href="/featured_photos">Featured Photos</a>
         <a href="/aboutus">About Us</a>
         <a href="/contact">Contact Us</a>
       </div>
-      
+
       <div id="main">
-        <button class="openbtn" onclick="openNav()">☰</button>  
+        <button class="openbtn" onclick="openNav()">☰</button>
       </div>
-      
+
       <script>
       function openNav() {
         document.getElementById("mySidebar").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
       }
-      
+
       function closeNav() {
         document.getElementById("mySidebar").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
       }
-      </script>  
+      </script>
     </body>
   </html>
 {% endif %}
@@ -140,18 +163,22 @@ body {
 <html>
 <style>
 body {
-    background-image: url(https://www.headdies.com/wp-content/uploads/2014/11/dark-black-website-background.jpg);
+  background-image :url(https://www.headdies.com/wp-content/uploads/2014/11/dark-black-website-background.jpg);
 }
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+    
 </style>
-
-<h2><font color="white">Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
-<input type="button" value="Create a New Account" onclick="window.location.href='/accounts/signup/'" />
-
-
-
-
+<div class="center">
+  <h2><font color="white">Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  <input type="button" value="Create a New Account" onclick="window.location.href='/accounts/signup/'" />
+</div>
