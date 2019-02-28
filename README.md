@@ -17,6 +17,9 @@ Running this code locally requires the following software:
     [scikit-image]
     [pillow]  
     [progrssbar.js]
+    [google-api-python-client]
+    [oauth2client]
+    
 
 Once you have all the prerequisite software installed, go to the *mysite* directory and start the server using
 
