@@ -6,7 +6,7 @@ import logging
 import os
 
 def index(request):
-	all_links = {'upload', 'accounts/login', 'aboutus', 'contact', 'top_photos', 'share'}
+	all_links = {'upload', 'accounts/login', 'aboutus', 'contact', 'featured_photos', 'share'}
 	template = loader.get_template('home/index.html')
 	context = {
 		'all_links' :all_links,
@@ -42,6 +42,6 @@ def profile(request):
 def contact(request):
 	return HttpResponse(render(request, 'home/contact.htm'))
 
-def top_photos(request):
+def featured_photos(request):
 	#add in way to get top photos obviously
-	return HttpResponse(render(request, 'home/top_photos.htm'))
+	return HttpResponse(render(request, 'home/featured_photos.htm'))
