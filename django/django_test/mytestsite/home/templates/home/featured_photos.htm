@@ -197,16 +197,31 @@
         {# thing is now /upload/files/ #}
         {% get_media_prefix as thing %}
         
+        {% if users %}
+          <p>{{filePaths}}</p>
+        {% else %}
+          <p>No users are registered with photos available to be featured.</p>
+        {% endif %}
+      
         <h1>Featured Photos</h1>
+        
         {% if user.username %}
-        <p>found a user</p>
-        <p>{{document.user}}</p>
-        <p>{{thing}}</p>
-        <p>{{user.username}}</p>
-        <p></p>
+        <!--<p>{{users}}</p>-->
+        {% for user in users %}
+          <!--<p>{{thing}}{{user}}/</p>-->
+          {% for file in recoloredList %}
+            <img src="{{thing}}{{user}}/{{file}}" style="margin-right : 150px;" alt="New photos coming soon!">
+          {% endfor %}
+        <!--<img src="{{thing}}{{user}}/" style="margin-right : 150px;">-->
+        {% endfor %}
+        
+        {#<p>{{document.user}}</p>#}
+        
+        
+        
         
         {% endif %}
-        <img src="/upload/files/{{user.username}}/6v14hm_recolored.png" style="margin-right : 150px;"> <img src="/upload/files/{{user.username}}/6v14hm_recolored.png">
+        <!--<img src="{{thing}}{{user}}/_recolored.png" style="margin-right : 150px;"> <img src="">
         <p style="margin-top : 150px;" ></p>
         <img src="" style="margin-right : 150px;"> <img src="/upload/files/{{user.username}}/6v14hm_recolored.png">
         <p style="margin-top : 150px;"></p>
@@ -214,6 +229,7 @@
         <p style="margin-top : 150px;"></p>
         <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{% static '' %}">
         <p style="margin-top : 150px;"></p>
+        -->
     </center>
 </body>
 </html>
