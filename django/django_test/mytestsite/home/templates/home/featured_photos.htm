@@ -205,22 +205,25 @@
       
         <h1>Featured Photos</h1>
         
-        {% if user.username %}
-        <!--<p>{{users}}</p>-->
-        {% for user in users %}
-          <!--<p>{{thing}}{{user}}/</p>-->
-          {% for file in recoloredList %}
-            <img src="{{thing}}{{user}}/{{file}}" style="margin-right : 150px;" alt="New photos coming soon!">
-          {% endfor %}
-        <!--<img src="{{thing}}{{user}}/" style="margin-right : 150px;">-->
+        <!--{% if user.username %}-->
+        <!--<p>{{users}}</p> -->
+        <!--{% for user in users %} -->
+          <!--<p>{{thing}}{{user}}/</p> -->
+        {% for file in recoloredList %}
+          <p>{{recoloredList}}</p>
+          <p>{{recoloredList.1}}</p>
+    
+          <p>{{ forloop.counter0 }}</p>
+
+          <img src="{{recoloredList.0.0}}/{{file}}" style="margin-right : 150px;" alt="New photos coming soon!">
+         <!--{% endfor %}    {{thing}}{{user}}/{{file}} -->
         {% endfor %}
+
+      
         
         {#<p>{{document.user}}</p>#}
-        
-        
-        
-        
-        {% endif %}
+      
+        <!--{% endif %}-->
         <!--<img src="{{thing}}{{user}}/_recolored.png" style="margin-right : 150px;"> <img src="">
         <p style="margin-top : 150px;" ></p>
         <img src="" style="margin-right : 150px;"> <img src="/upload/files/{{user.username}}/6v14hm_recolored.png">
