@@ -97,15 +97,34 @@
         </div>
 
         <script>
-        function openNav() {
-          document.getElementById("mySidebar").style.width = "250px";
-          document.getElementById("main").style.marginLeft = "250px";
-        }
-
-        function closeNav() {
-          document.getElementById("mySidebar").style.width = "0";
-          document.getElementById("main").style.marginLeft= "0";
-        }
+            function openNav() {
+          
+              document.getElementById("mySidebar").style.width = "250px";
+              document.getElementById("main").style.marginLeft = "250px";
+              var navButton = document.getElementById("main")
+              if(navButton.style.display === "none")
+              {
+                navButton.style.display = "block"
+              }
+              else
+              {
+                navButton.style.display = "none"
+              }
+            }
+    
+            function closeNav() {
+              document.getElementById("mySidebar").style.width = "0";
+              document.getElementById("main").style.marginLeft= "0";
+              var navButton = document.getElementById("main")
+              if(navButton.style.display === "none")
+              {
+                navButton.style.display = "block"
+              }
+              else
+              {
+                navButton.style.display = "none"
+              }
+            }
         </script>
       </body>
     </html>
@@ -120,7 +139,7 @@
         <a href="/accounts/login">Login</a>
         <a href="/profile">Profile</a>
         <a href="/">Upload</a>
-        <a href="/top_photos">Top Photos</a>
+        <a href="/featured_photos">Featured Photos</a>
         <a href="/aboutus">About Us</a>
         <a href="/contact">Contact Us</a>
       </div>
@@ -130,15 +149,34 @@
       </div>
 
       <script>
-      function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-      }
-
-      function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("main").style.marginLeft= "0";
-      }
+          function openNav() {
+          
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            var navButton = document.getElementById("main")
+            if(navButton.style.display === "none")
+            {
+              navButton.style.display = "block"
+            }
+            else
+            {
+              navButton.style.display = "none"
+            }
+          }
+  
+          function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+            var navButton = document.getElementById("main")
+            if(navButton.style.display === "none")
+            {
+              navButton.style.display = "block"
+            }
+            else
+            {
+              navButton.style.display = "none"
+            }
+          }
       </script>
     </body>
   </html>
