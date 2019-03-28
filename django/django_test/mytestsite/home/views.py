@@ -78,3 +78,7 @@ def featured_photos(request):
     }
 	return HttpResponse(template.render(context, request))
 	#return HttpResponse(render(request, 'home/featured_photos.htm'))
+
+
+def stats(request):
+	return HttpResponse(render(request, 'home/stats.htm'))
