@@ -62,9 +62,18 @@ def featured_photos(request):
 		print(path)
 		print("Subdirectories: ", dirs)
 		print(files)
+		path.replace('\\','/')
+		split = path.split("/")
+		user = split[len(split)-1]
+		user = user.split("\\")
+		print("user: ", user)
+		if len(user) >= 2:
+			print("user[1]: ", user[1])
+			account = user[1]
+			print("account: ", account)
 		for file in files:
 			if file.endswith(".png"):
-				recoloredList.append(file)
+				recoloredList.append((account,file))
 	print("RECOLORED LIST: ", recoloredList)
 	#f fileName.endswith(".png"):
 	#	print("Display this image")
