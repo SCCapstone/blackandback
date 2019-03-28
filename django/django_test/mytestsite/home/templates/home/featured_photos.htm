@@ -1,11 +1,11 @@
-
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en"
 
 
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HOME - Photos Page</title>
+<title>Featured Photos</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
 
 <!-- PAGE STYLES -->
@@ -33,7 +33,7 @@
 <!-- SIDEBAR STYLES -->
 <style>
     body {
-        background-image: url(https://images.pexels.com/photos/988873/pexels-photo-988873.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+        
     }
     body {
       font-family: "Lato", sans-serif;
@@ -99,7 +99,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  <h1 style="text-align:right">Welcome {{ user.username }}!</h1>
+  <h4 style="text-align:right">Welcome, {{ user.username }}!</h1>
   <html>
       <body>
         <div id="mySidebar" class="sidebar">
@@ -119,13 +119,32 @@
 
         <script>
         function openNav() {
+          
           document.getElementById("mySidebar").style.width = "250px";
           document.getElementById("main").style.marginLeft = "250px";
+          var navButton = document.getElementById("main")
+          if(navButton.style.display === "none")
+          {
+            navButton.style.display = "block"
+          }
+          else
+          {
+            navButton.style.display = "none"
+          }
         }
 
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
           document.getElementById("main").style.marginLeft= "0";
+          var navButton = document.getElementById("main")
+          if(navButton.style.display === "none")
+          {
+            navButton.style.display = "block"
+          }
+          else
+          {
+            navButton.style.display = "none"
+          }
         }
         </script>
       </body>
@@ -174,6 +193,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Top Photos!</title>
@@ -195,6 +216,7 @@
         {% load static %}
         <body data-media-url="{% get_media_prefix %}">
         {# thing is now /upload/files/ #}
+        {#style="margin-right : 150px;"#}
         {% get_media_prefix as thing %}
         
         {% if users %}
@@ -203,33 +225,16 @@
           <p>No users are registered with photos available to be featured.</p>
         {% endif %}
       
-        <h1>Featured Photos</h1>
-        
-        {% if user.username %}
-        <!--<p>{{users}}</p>-->
-        {% for user in users %}
-          <!--<p>{{thing}}{{user}}/</p>-->
-          {% for file in recoloredList %}
-            <img src="{{thing}}{{user}}/{{file}}" style="margin-right : 150px;" alt="New photos coming soon!">
-          {% endfor %}
-        <!--<img src="{{thing}}{{user}}/" style="margin-right : 150px;">-->
+        <div class="jumbotron">
+        <div class="page-header">
+            <h1 class="display-3">Featured Photos</h1>
+        </div>
+        </div>
+        <div class="text-center">
+        {% for file in recoloredList %}
+          <img src="{{thing}}{{file.0}}/{{file.1}}" class="rounded" alt="New photos coming soon!">
         {% endfor %}
-        
-        {#<p>{{document.user}}</p>#}
-        
-        
-        
-        
-        {% endif %}
-        <!--<img src="{{thing}}{{user}}/_recolored.png" style="margin-right : 150px;"> <img src="">
-        <p style="margin-top : 150px;" ></p>
-        <img src="" style="margin-right : 150px;"> <img src="/upload/files/{{user.username}}/6v14hm_recolored.png">
-        <p style="margin-top : 150px;"></p>
-        <img src="/upload/files/str/str" style="margin-right : 150px;"> <img src="">
-        <p style="margin-top : 150px;"></p>
-        <img src="{% static '' %}" style="margin-right : 150px;"> <img src="{% static '' %}">
-        <p style="margin-top : 150px;"></p>
-        -->
+        </div>
     </center>
 </body>
 </html>
