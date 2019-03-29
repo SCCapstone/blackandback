@@ -1,44 +1,27 @@
-{% load analytical %}
-<html>
-<head>
-<!-- <img src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a> -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Scripted widgets are from https://clicky.com/stats/prefs-widgets and were written by Clicky -->
 
 <head>
-    {% analytical_head_top %}
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home - Index</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
-    
+    <title>Stats - blackandback</title>
+
     <!-- PAGE STYLES -->
     <style>
         body {
-          background-color:#a6a6a6;
+            font-family: "Lato", sans-serif;
+        }
+        h1 {
+            font-size: 34pt;
         }
 
-        div.c {
-          text-align: right;
+        page {
+            position: absolute;
+            background-color: whitesmoke;
+            width: 100%;
+            text-align: center;
         }
 
-        #welcome {
-          display: flex;
+        widget {
+            display: inline-flex;
         }
-
-        #logo {
-          display: flex;
-        }
-        .button {
-                background-color: rgb(44, 24, 223);
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-              }
     </style>
 
     <!-- SIDEBAR STYLES  -->
@@ -114,7 +97,7 @@
         .right{
         padding-right:3px;
         }
-        
+
         .moveright{
         text-align: right;
         }
@@ -136,13 +119,12 @@
         }
 
     </style>
-    {% analytical_head_bottom %}
-  </head>
+</head>
 
+<!--SIDEBAR-->
   <body>
-    {% analytical_body_top %}
         <div class="container">
-          <img id="logo" src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a>
+          <img id="logo" src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="70" alt="Logo"</a>
           <div id="welcome">
             {% block content %}
             {% if user.is_authenticated %}
@@ -173,10 +155,10 @@
                       Contact Us
                     </a>
                       <a href="/stats">
-                          Stats
-                      </a>
+                      Stats
+                    </a>
                   </div>
-        
+
                   <div id="main">
                     <button class="openbtn" onclick="openNav()">
                       ☰
@@ -215,22 +197,15 @@
                       Contact Us
                     </a>
                     <a href="/stats">
-                        Stats
+                      Stats
                     </a>
                   </div>
-        
+
                   <div id="main">
                     <button class="openbtn" onclick="openNav()">
                       ☰
                     </button>
                   </div>
-                </div>
-                <div class="moveright">
-                  <b>
-                    <font size="4">
-                      You are not logged in, login to recolor
-                    </font>
-                  </b>
                 </div>
             {% endif %}
             {% endblock %}
@@ -242,89 +217,29 @@
         <script>
         // SIDEBAR FUNCTIONS
           function openNav() {
-          document.getElementById("mySidebar").style.width = "250px";
-          document.getElementById("main").style.marginLeft = "250px";
-          var navButton = document.getElementById("main")
-          if(navButton.style.display === "none")
-          {
-            navButton.style.display = "block"
-          }
-          else
-          {
-            navButton.style.display = "none"
-          }
-        };
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+          };
 
-        function closeNav() {
-          document.getElementById("mySidebar").style.width = "0";
-          document.getElementById("main").style.marginLeft= "0";
-          var navButton = document.getElementById("main")
-          if(navButton.style.display === "none")
-          {
-            navButton.style.display = "block"
-          }
-          else
-          {
-            navButton.style.display = "none"
-          }
-        };
+          function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+          };
         </script>
   </body>
-{% analytical_body_bottom %}
+<!--END SIDEBAR-->
+
+<body>
+<page>
+    <h1> Site Stats </h1>
+<widget>
+    <script src="//widgets.clicky.com/flashy/?site_id=101176092&sitekey=1ae242a1c0775ec5c8bff334108f855f&w=400&h=300&date=last-28-days&type=visitors&title=&hide_y=0&hide_title=0&hide_branding=0"
+            type="text/javascript"></script>
+
+    <script src="//widgets.clicky.com/cloudy/?site_id=101176092&sitekey=0a8d7c2defb3f92496315dbe51d6c5a6&width=200&height=500&date=last-7-days&type=screen-resolutions&limit=10&title=&hide_title=0&hide_branding=0"
+            type="text/javascript"></script>
+</widget>
+</page>
+</body>
+
 </html>
-
-<html>
-  <body>
-  <b class="center">
-    <font size="5" color="black">
-    Whats Going On here: We turn this (Black and white photo).... Into this(A colorized version of it)
-    </font>
-  </b>
-  <div class="row">
-    <div class="column">
-      <img src="https://demos.algorithmia.com/colorize-photos/public/images/fire.png" alt="Black and white" style="width:400px;height:400px;" class="center">
-    </div>
-    <div class="column">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/200px-Fire_breathing_2_Luc_Viatour.jpg" alt="colorized" style="width:400px;height:400px;" class="center">
-    </div>
-  </div>
-  </body>
-</html>
-
-  <html>
-    <head>
-    <style>
-    .button {
-      background-color: rgb(46, 116, 245);
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      align-items: center;
-      justify-content: center;
-    }
-    .center {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 50%;
-        }
-
-        .right{
-        padding-left:3px;
-        }
-    </style>
-    </head>
-    <body>
-      <div class="center">
-        <a href="/aboutus" class="button">
-          Learn more about us
-        </a>
-      </div>
-    </body>
-  </html>
