@@ -15,10 +15,12 @@
     }
 
     div.c {
-      text-align: right;
+      text-align: left;
     }
 
-
+    p {
+        text-align: right;
+    }
 
     #welcome {
       display: flex;
@@ -32,9 +34,6 @@
 
 <!-- SIDEBAR STYLES -->
 <style>
-    body {
-        
-    }
     body {
       font-family: "Lato", sans-serif;
     }
@@ -99,7 +98,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  <h4 style="text-align:right">Welcome, {{ user.username }}!</h1>
+  <b style="text-align:right">Welcome, {{ user.username }}!</b>
   <html>
       <body>
         <div id="mySidebar" class="sidebar">
