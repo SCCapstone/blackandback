@@ -10,6 +10,7 @@ Running this code locally requires the following software:
 
     [Python 3.6](https://www.python.org/downloads/)
     [Django 2.1.2 (or other compatable version)](https://www.djangoproject.com/)
+    [django-analytical] (due to poorly maintained libraries, installing [pycryptodome] maybe be neccessary for this install)
     [Tensorflow](https://www.tensorflow.org/)
     [Keras](https://keras.io/)
     [Psycopg2]
