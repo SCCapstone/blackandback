@@ -34,6 +34,10 @@
                 display: flex;
             }
 
+            .example {
+                width: 400px;
+            }
+
             .button {
                 background-color: rgb(44, 24, 223);
                 border: none;
@@ -139,6 +143,12 @@
                 float: left;
                 width: 50%;
                 padding: 5px;
+            }
+
+            .row {
+                text-align: center;
+                display: flex;
+                width: 100%;
             }
 
             .row::after {
@@ -279,11 +289,11 @@
 <div class="row">
     <div class="column">
         <img src="https://demos.algorithmia.com/colorize-photos/public/images/fire.png" alt="Black and white"
-             style="width:400px;height:400px;" class="center">
+             style="width:400px;height:400px;" class="example">
     </div>
     <div class="column">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/200px-Fire_breathing_2_Luc_Viatour.jpg"
-             alt="colorized" style="width:400px;height:400px;" class="center">
+             alt="colorized" style="width:400px;height:400px;" class="example">
     </div>
 </div>
 </body>
@@ -315,6 +325,22 @@
           width: 100%;
         max-width: 30em;
         text-align: center;
+        }
+
+        @media (max-width: 800px){
+            .column {
+                display: block;
+                width: 100vw;
+                text-align: center;
+            }
+            .row {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+            .example {
+                object-fit: contain;
+            }
         }
 
         .container {
