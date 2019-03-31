@@ -1,9 +1,11 @@
+{% load analytical %}
 <html>
 <head>
     <!-- <img src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <head>
+    {% analytical_head_top %}
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <title>Home - Index</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
@@ -193,6 +195,9 @@
                         <a href="/contact">
                             Contact Us
                         </a>
+                        <a href="/stats">
+                          Stats
+                        </a>
                     </div>
 
                     <div id="main">
@@ -200,6 +205,7 @@
                             ☰
                         </button>
                     </div>
+
                 </div>
                 <div class="moveright">
                     <b>
@@ -232,9 +238,13 @@
                     <a href="/contact">
                         Contact Us
                     </a>
-                </div>
-
-                <div id="main">
+                    <a href="/stats">
+                        Stats
+                    </a>
+                  </div>
+        
+                  <div id="main">
+                    
                     <button class="openbtn" onclick="openNav()">
                         ☰
                     </button>
@@ -275,10 +285,12 @@
             navButton.style.display = "block"
         } else {
             navButton.style.display = "none"
-        }
-    }
-</script>
-</body>
+
+          }
+        };
+        </script>
+  </body>
+{% analytical_body_bottom %}
 </html>
 
 <html>

@@ -101,6 +101,7 @@
           <a href="/top_photos">Top Photos</a>
           <a href="/aboutus">About Us</a>
           <a href="/contact">Contact Us</a>
+            <a href="/stats">Stats</a>
         </div>
 
         <div id="main">
@@ -111,11 +112,29 @@
         function openNav() {
           document.getElementById("mySidebar").style.width = "250px";
           document.getElementById("main").style.marginLeft = "250px";
+          var navButton = document.getElementById("main")
+          if(navButton.style.display === "none")
+          {
+            navButton.style.display = "block"
+          }
+          else
+          {
+            navButton.style.display = "none"
+          }
         }
 
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
           document.getElementById("main").style.marginLeft= "0";
+          var navButton = document.getElementById("main")
+          if(navButton.style.display === "none")
+          {
+            navButton.style.display = "block"
+          }
+          else
+          {
+            navButton.style.display = "none"
+          }
         }
         </script>
       </body>
@@ -134,6 +153,7 @@
         <a href="/featured_photos">Featured Photos</a>
         <a href="/aboutus">About Us</a>
         <a href="/contact">Contact Us</a>
+          <a href="stats">Stats</a>
       </div>
 
       <div id="main">
@@ -142,14 +162,33 @@
 
       <script>
       function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-      }
+          
+          document.getElementById("mySidebar").style.width = "250px";
+          document.getElementById("main").style.marginLeft = "250px";
+          var navButton = document.getElementById("main")
+          if(navButton.style.display === "none")
+          {
+            navButton.style.display = "block"
+          }
+          else
+          {
+            navButton.style.display = "none"
+          }
+        }
 
-      function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("main").style.marginLeft= "0";
-      }
+        function closeNav() {
+          document.getElementById("mySidebar").style.width = "0";
+          document.getElementById("main").style.marginLeft= "0";
+          var navButton = document.getElementById("main")
+          if(navButton.style.display === "none")
+          {
+            navButton.style.display = "block"
+          }
+          else
+          {
+            navButton.style.display = "none"
+          }
+        }
       </script>
     </body>
   </html>

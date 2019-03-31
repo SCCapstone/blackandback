@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	'django_social_share',
     'social_django',
     'accounts.apps.AccountsConfig',
+    'analytical',
 ]
 
 MIDDLEWARE = [
@@ -152,4 +153,6 @@ MEDIA_URL = '/upload/files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload/files') # slash at the end was causing suspicious file operation error when uploading photo
 LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_FACEBOOK_KEY = '622015568212908'
-SOCIAL_AUTH_FACEBOOK_SECRET = '0d2b3a446629c8196d3138f9e6a7444a' 
+SOCIAL_AUTH_FACEBOOK_SECRET = '0d2b3a446629c8196d3138f9e6a7444a'
+
+CLICKY_SITE_ID = 101176092

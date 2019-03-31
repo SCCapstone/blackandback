@@ -1,0 +1,263 @@
+<!-- Scripted widgets are from https://clicky.com/stats/prefs-widgets and were written by Clicky -->
+
+<head>
+    <title>Stats - blackandback</title>
+
+    <!-- PAGE STYLES -->
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+        h1 {
+            font-size: 34pt;
+        }
+
+        page {
+            position: absolute;
+            background-color: whitesmoke;
+            width: 100%;
+            text-align: center;
+        }
+
+        widget {
+            display: inline-flex;
+        }
+    </style>
+
+    <!-- SIDEBAR STYLES  -->
+    <style>
+
+        body {
+          background-color:#f8f7f7
+        }
+
+        .sidebar {
+          height: 100%;
+          width: 0;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: #111;
+          overflow-x: hidden;
+          transition: 0.5s;
+          padding-top: 60px;
+        }
+
+        .sidebar a {
+          padding: 8px 8px 8px 32px;
+          text-decoration: none;
+          font-size: 25px;
+          color: #f1f5f2;
+          display: block;
+          transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+          color: #0000e6;
+        }
+
+        .sidebar .closebtn {
+          position: absolute;
+          top: 0;
+          right: 23px;
+          font-size: 40px;
+          margin-left: 50px;
+        }
+
+        .openbtn {
+          font-size: 20px;
+          cursor: pointer;
+          background-color: #111;
+          color: rgb(255, 255, 255);
+          padding: 10px 15px;
+          border: none;
+        }
+
+        .openbtn:hover {
+          background-color: rgb(3, 3, 3);;
+        }
+
+        #main {
+          transition: margin-left .5s;
+          padding: 16px;
+        }
+
+        @media screen and (max-height: 450px) {
+          .sidebar {padding-top: 15px;}
+          .sidebar a {font-size: 18px;}
+        }
+        .center {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
+        }
+
+        .right{
+        padding-right:3px;
+        }
+
+        .moveright{
+        text-align: right;
+        }
+
+        * {
+        box-sizing: border-box;
+        }
+
+        .column {
+          float: left;
+          width: 50%;
+          padding: 5px;
+        }
+
+        .row::after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+
+    </style>
+</head>
+
+<!--SIDEBAR-->
+  <body>
+        <div class="container">
+          <img id="logo" src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="70" alt="Logo"</a>
+          <div id="welcome">
+            {% block content %}
+            {% if user.is_authenticated %}
+              <div>
+                  <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                      ×
+                    </a>
+                    <a href="/">
+                      Home
+                    </a>
+                    <a href="{% url 'logout' %}?next=/">
+                      Logout
+                    </a>
+                    <a href="/profile">
+                      Profile
+                    </a>
+                    <a href="/upload">
+                      Upload
+                    </a>
+                    <a href="/featured_photos">
+                      Featured Photos
+                    </a>
+                    <a href="/aboutus">
+                      About Us
+                    </a>
+                    <a href="/contact">
+                      Contact Us
+                    </a>
+                      <a href="/stats">
+                      Stats
+                    </a>
+                  </div>
+
+                  <div id="main">
+                    <button class="openbtn" onclick="openNav()">
+                      ☰
+                    </button>
+                  </div>
+                </div>
+                <div class="moveright">
+                  <b>
+                    Welcome {{ user.username }}!
+                  </b>
+                </div>
+            {% else %}
+                  <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                      ×
+                    </a>
+                    <a href="/">
+                      Home
+                    </a>
+                    <a href="/accounts/login">
+                      Login
+                    </a>
+                    <a href="/profile">
+                      Profile
+                    </a>
+                    <a href="/">
+                      Upload
+                    </a>
+                    <a href="/featured_photos">
+                      Featured Photos
+                    </a>
+                    <a href="/aboutus">
+                      About Us
+                    </a>
+                    <a href="/contact">
+                      Contact Us
+                    </a>
+                    <a href="/stats">
+                      Stats
+                    </a>
+                  </div>
+
+                  <div id="main">
+                    <button class="openbtn" onclick="openNav()">
+                      ☰
+                    </button>
+                  </div>
+                </div>
+            {% endif %}
+            {% endblock %}
+          </div>
+        </div>
+
+        <!-- THIS IS WHERE YOUR CONTENT GOES!!! -->
+
+        <script>
+        // SIDEBAR FUNCTIONS
+        function openNav() {
+          document.getElementById("mySidebar").style.width = "250px";
+          document.getElementById("main").style.marginLeft = "250px";
+          var navButton = document.getElementById("main")
+          if(navButton.style.display === "none")
+          {
+            navButton.style.display = "block"
+          }
+          else
+          {
+            navButton.style.display = "none"
+          }
+        }
+
+        function closeNav() {
+          document.getElementById("mySidebar").style.width = "0";
+          document.getElementById("main").style.marginLeft= "0";
+          var navButton = document.getElementById("main")
+          if(navButton.style.display === "none")
+          {
+            navButton.style.display = "block"
+          }
+          else
+          {
+            navButton.style.display = "none"
+          }
+        }
+        </script>
+  </body>
+<!--END SIDEBAR-->
+
+<body>
+<page>
+    <h1> Site Stats </h1>
+<widget>
+    <script src="//widgets.clicky.com/flashy/?site_id=101176092&sitekey=1ae242a1c0775ec5c8bff334108f855f&w=400&h=300&date=last-28-days&type=visitors&title=&hide_y=0&hide_title=0&hide_branding=0"
+            type="text/javascript"></script>
+
+    <script src="//widgets.clicky.com/cloudy/?site_id=101176092&sitekey=0a8d7c2defb3f92496315dbe51d6c5a6&width=200&height=500&date=last-7-days&type=screen-resolutions&limit=10&title=&hide_title=0&hide_branding=0"
+            type="text/javascript"></script>
+</widget>
+</page>
+</body>
+
+</html>
