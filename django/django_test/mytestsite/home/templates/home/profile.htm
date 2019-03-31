@@ -9,6 +9,19 @@
 
         <!-- PAGE STYLES -->
         <style>
+
+            .moveright{
+                margin: 0 auto 0;
+                max-width: 60rem;
+                display: block;
+                padding: 12px;
+                text-align: left;
+            }
+
+            .b {
+                font-size: 20pt;
+            }
+
             h3{
                 text-align: center;
                 color: white;
@@ -43,6 +56,10 @@
 
         <!-- SIDEBAR STYLES  -->
         <style>
+
+            .container{
+                margin-left: 0;
+            }
 
             body {
               font-family: "Lato", sans-serif;
@@ -148,8 +165,8 @@
                                 </button>
                               </div>
                             </div>
-                            
 
+                              <div class="moveright">
                             <form class="field" method="post" enctype="multipart/form-data">
                               {% csrf_token %}
                               <div class="control"><input class="input" type="file" name="myfile"></div>
@@ -164,7 +181,7 @@
                                   <figure class="image is-128x128">
                                   <img src="{{ profile_url }}" style="width:100px;height:100px;">
                                 </figure>
-                                  {% endif %}
+                                  {% endif %}3
 
                                   {% if uploaded_file_url %}
                                     <div class="a">profile pic uploaded</div>
@@ -190,6 +207,7 @@
                                     <!-- {% endif %} -->
                                   {% endfor %}
                                 </div>
+                              </div>
 
                               {% else %}
                               <div id="mySidebar" class="sidebar">
@@ -222,8 +240,9 @@
                               <b>
                                 You are not logged in, login to recolor
                               </b>
-                            </div>
+                                <br/>
                             <a class="button" href="{% url 'login' %}">login</a>
+                            </div>
                           {% endif %}
                           {% endblock %}
 
