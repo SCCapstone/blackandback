@@ -111,7 +111,7 @@ class RecolorNN(object):
 			decoder_output = UpSampling2D((2, 2))(decoder_output)
 
 			self.model = Model(inputs=[encoder_input, embed_input], outputs=decoder_output)
-
+			self.model._make_predict_function()
 
 
 
@@ -182,6 +182,8 @@ class RecolorNN(object):
 		self.color_me_embed = self.create_inception_embedding(self.color_me)
 		self.color_me = rgb2lab(self.color_me)[:,:,:,0]
 		self.color_me = self.color_me.reshape(self.color_me.shape+(1,))
+		
+		
 
 	def testModel(self):
 		# Test model
@@ -196,6 +198,8 @@ class RecolorNN(object):
 			cur[:,:,1:] = self.output[i]
 			recolorFile = os.path.splitext(recolorFile)[0] 
 			imsave("upload/files/" + username + "/" + recolorFile + "_recolored.png" , lab2rgb(cur))	
+		K.clear_session()
+		
 def runNN(username,recolorFile):
 	NN = RecolorNN()
 	NN.loadWeights()
@@ -208,4 +212,5 @@ def runNN(username,recolorFile):
 	print("Outputting images")
 	NN.outputColors(username, recolorFile)
 	print("Outputted images")
+	return 0
 
