@@ -1,33 +1,46 @@
 {% load analytical %}
 <html>
 <head>
-<!-- <img src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a> -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <img src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
+    <head>
     {% analytical_head_top %}
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home - Index</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
-    
-    <!-- PAGE STYLES -->
-    <style>
-        body {
-          background-color:#a6a6a6;
-        }
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Index</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
 
-        div.c {
-          text-align: right;
-        }
+        <!-- PAGE STYLES -->
+        <style>
+            body {
+                background-color: #a6a6a6;
+                max-width: 100vw;
+            }
 
-        #welcome {
-          display: flex;
-        }
+            h2{
+                font-size: 16pt;
+                color: black;
+                font-weight: bold;
 
-        #logo {
-          display: flex;
-        }
-        .button {
+            }
+
+            div.c {
+                text-align: right;
+            }
+
+            #welcome {
+                display: flex;
+            }
+
+            #logo {
+                display: flex;
+            }
+
+            .example {
+                width: 400px;
+            }
+
+            .button {
                 background-color: rgb(44, 24, 223);
                 border: none;
                 color: white;
@@ -38,181 +51,192 @@
                 font-size: 16px;
                 margin: 4px 2px;
                 cursor: pointer;
-              }
-    </style>
+            }
+        </style>
 
-    <!-- SIDEBAR STYLES  -->
-    <style>
+        <!-- SIDEBAR STYLES  -->
+        <style>
+            body {
+                background-color: #f8f7f7
+            }
 
-        body {
-          background-color:#f8f7f7
-        }
+            .sidebar {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: #111;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+            }
 
-        .sidebar {
-          height: 100%;
-          width: 0;
-          position: fixed;
-          z-index: 1;
-          top: 0;
-          left: 0;
-          background-color: #111;
-          overflow-x: hidden;
-          transition: 0.5s;
-          padding-top: 60px;
-        }
+            .sidebar a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #f1f5f2;
+                display: block;
+                transition: 0.3s;
+            }
 
-        .sidebar a {
-          padding: 8px 8px 8px 32px;
-          text-decoration: none;
-          font-size: 25px;
-          color: #f1f5f2;
-          display: block;
-          transition: 0.3s;
-        }
+            .sidebar a:hover {
+                color: #0000e6;
+            }
 
-        .sidebar a:hover {
-          color: #0000e6;
-        }
+            .sidebar .closebtn {
+                position: absolute;
+                top: 0;
+                right: 23px;
+                font-size: 40px;
+                margin-left: 50px;
+            }
 
-        .sidebar .closebtn {
-          position: absolute;
-          top: 0;
-          right: 23px;
-          font-size: 40px;
-          margin-left: 50px;
-        }
+            .openbtn {
+                font-size: 20px;
+                cursor: pointer;
+                background-color: #111;
+                color: rgb(255, 255, 255);
+                padding: 10px 15px;
+                border: none;
+            }
 
-        .openbtn {
-          font-size: 20px;
-          cursor: pointer;
-          background-color: #111;
-          color: rgb(255, 255, 255);
-          padding: 10px 15px;
-          border: none;
-        }
+            .openbtn:hover {
+                background-color: rgb(3, 3, 3);;
+            }
 
-        .openbtn:hover {
-          background-color: rgb(3, 3, 3);;
-        }
+            #main {
+                transition: margin-left .5s;
+                padding: 16px;
+            }
 
-        #main {
-          transition: margin-left .5s;
-          padding: 16px;
-        }
+            @media screen and (max-height: 450px) {
+                .sidebar {
+                    padding-top: 15px;
+                }
 
-        @media screen and (max-height: 450px) {
-          .sidebar {padding-top: 15px;}
-          .sidebar a {font-size: 18px;}
-        }
-        .center {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 50%;
-        }
+                .sidebar a {
+                    font-size: 18px;
+                }
+            }
 
-        .right{
-        padding-right:3px;
-        }
-        
-        .moveright{
-        text-align: right;
-        }
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
 
-        * {
-        box-sizing: border-box;
-        }
+            .right {
+                padding-right: 3px;
+            }
 
-        .column {
-          float: left;
-          width: 50%;
-          padding: 5px;
-        }
+            .moveright {
+                text-align: right;
+            }
 
-        .row::after {
-          content: "";
-          clear: both;
-          display: table;
-        }
+            * {
+                box-sizing: border-box;
+            }
 
-    </style>
-    {% analytical_head_bottom %}
-  </head>
+            .column {
+                float: left;
+                width: 50%;
+                padding: 5px;
+            }
 
-  <body>
-    {% analytical_body_top %}
-        <div class="container">
-          <img id="logo" src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a>
-          <div id="welcome">
-            {% block content %}
+            .row {
+                text-align: center;
+                display: flex;
+                width: 100%;
+            }
+
+            .row::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+        </style>
+    </head>
+
+<body>
+
+
+<div class="container">
+    <img id="logo" src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="120" alt="Logo"</a>
+    <div id="welcome">
+        {% block content %}
             {% if user.is_authenticated %}
-              <div>
-                  <div id="mySidebar" class="sidebar">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
-                      ×
-                    </a>
-                    <a href="/">
-                      Home
-                    </a>
-                    <a href="{% url 'logout' %}?next=/">
-                      Logout
-                    </a>
-                    <a href="/profile">
-                      Profile
-                    </a>
-                    <a href="/upload">
-                      Upload
-                    </a>
-                    <a href="/featured_photos">
-                      Featured Photos
-                    </a>
-                    <a href="/aboutus">
-                      About Us
-                    </a>
-                    <a href="/contact">
-                      Contact Us
-                    </a>
-                      <a href="/stats">
+                <div>
+                    <div id="mySidebar" class="sidebar">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                            ×
+                        </a>
+                        <a href="/">
+                            Home
+                        </a>
+                        <a href="{% url 'logout' %}?next=/">
+                            Logout
+                        </a>
+                        <a href="/profile">
+                            Profile
+                        </a>
+                        <a href="/upload">
+                            Upload
+                        </a>
+                        <a href="/featured_photos">
+                            Featured Photos
+                        </a>
+                        <a href="/aboutus">
+                            About Us
+                        </a>
+                        <a href="/contact">
+                            Contact Us
+                        </a>
+                        <a href="/stats">
                           Stats
-                      </a>
-                  </div>
-        
-                  <div id="main">
-                    <button class="openbtn" onclick="openNav()">
-                      ☰
-                    </button>
-                  </div>
+                        </a>
+                    </div>
+
+                    <div id="main">
+                        <button class="openbtn" onclick="openNav()">
+                            ☰
+                        </button>
+                    </div>
+
                 </div>
                 <div class="moveright">
-                  <b>
-                    Welcome {{ user.username }}!
-                  </b>
+                    <b>
+                        Welcome {{ user.username }}!
+                    </b>
                 </div>
             {% else %}
-                  <div id="mySidebar" class="sidebar">
+                <div id="mySidebar" class="sidebar">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
-                      ×
+                        ×
                     </a>
                     <a href="/">
-                      Home
+                        Home
                     </a>
                     <a href="/accounts/login">
-                      Login
+                        Login
                     </a>
                     <a href="/profile">
-                      Profile
+                        Profile
                     </a>
                     <a href="/">
-                      Upload
+                        Upload
                     </a>
                     <a href="/featured_photos">
-                      Featured Photos
+                        Featured Photos
                     </a>
                     <a href="/aboutus">
-                      About Us
+                        About Us
                     </a>
                     <a href="/contact">
-                      Contact Us
+                        Contact Us
                     </a>
                     <a href="/stats">
                         Stats
@@ -220,52 +244,48 @@
                   </div>
         
                   <div id="main">
+                    
                     <button class="openbtn" onclick="openNav()">
-                      ☰
+                        ☰
                     </button>
-                  </div>
+                </div>
                 </div>
                 <div class="moveright">
-                  <b>
-                    <font size="4">
-                      You are not logged in, login to recolor
-                    </font>
-                  </b>
+                    <b>
+                        <font size="4">
+                            You are not logged in, login to recolor
+                        </font>
+                    </b>
                 </div>
             {% endif %}
-            {% endblock %}
-          </div>
-        </div>
+        {% endblock %}
+</div>
+</div>
 
-        <!-- THIS IS WHERE YOUR CONTENT GOES!!! -->
+<!-- THIS IS WHERE YOUR CONTENT GOES!!! -->
 
-        <script>
-        // SIDEBAR FUNCTIONS
-          function openNav() {
-          document.getElementById("mySidebar").style.width = "250px";
-          document.getElementById("main").style.marginLeft = "250px";
-          var navButton = document.getElementById("main")
-          if(navButton.style.display === "none")
-          {
+<script>
+    // SIDEBAR FUNCTIONS
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        var navButton = document.getElementById("main");
+        if (navButton.style.display === "none") {
             navButton.style.display = "block"
-          }
-          else
-          {
+        } else {
             navButton.style.display = "none"
-          }
-        };
+        }
+    }
 
-        function closeNav() {
-          document.getElementById("mySidebar").style.width = "0";
-          document.getElementById("main").style.marginLeft= "0";
-          var navButton = document.getElementById("main")
-          if(navButton.style.display === "none")
-          {
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        var navButton = document.getElementById("main");
+        if (navButton.style.display === "none") {
             navButton.style.display = "block"
-          }
-          else
-          {
+        } else {
             navButton.style.display = "none"
+
           }
         };
         </script>
@@ -274,57 +294,82 @@
 </html>
 
 <html>
-  <body>
-  <b class="center">
-    <font size="5" color="black">
-    Whats Going On here: We turn this (Black and white photo).... Into this(A colorized version of it)
-    </font>
-  </b>
-  <div class="row">
+<body>
+<h2 class="center">
+    Whats Going On here: We turn this (black and white) photo into this colorized version of itself.
+</h2>
+<div class="row">
     <div class="column">
-      <img src="https://demos.algorithmia.com/colorize-photos/public/images/fire.png" alt="Black and white" style="width:400px;height:400px;" class="center">
+        <img src="https://demos.algorithmia.com/colorize-photos/public/images/fire.png" alt="Black and white"
+             style="width:400px;height:400px;" class="example">
     </div>
     <div class="column">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/200px-Fire_breathing_2_Luc_Viatour.jpg" alt="colorized" style="width:400px;height:400px;" class="center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Fire_breathing_2_Luc_Viatour.jpg/200px-Fire_breathing_2_Luc_Viatour.jpg"
+             alt="colorized" style="width:400px;height:400px;" class="example">
     </div>
-  </div>
-  </body>
+</div>
+</body>
 </html>
 
-  <html>
-    <head>
+<html>
+<head>
     <style>
-    .button {
-      background-color: rgb(46, 116, 245);
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      align-items: center;
-      justify-content: center;
-    }
-    .center {
+        .button {
+            background-color: rgb(46, 116, 245);
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center {
           display: block;
           margin-left: auto;
           margin-right: auto;
-          width: 50%;
+            margin-top: 2em;
+          width: 100%;
+        max-width: 30em;
+        text-align: center;
         }
 
-        .right{
-        padding-left:3px;
+        @media (max-width: 800px){
+            .column {
+                display: block;
+                width: 100vw;
+                text-align: center;
+            }
+            .row {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+            .example {
+                object-fit: contain;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .right {
+            padding-left: 3px;
         }
     </style>
-    </head>
-    <body>
-      <div class="center">
-        <a href="/aboutus" class="button">
-          Learn more about us
-        </a>
-      </div>
-    </body>
-  </html>
+</head>
+<body>
+<div class="center">
+    <a href="/aboutus" class="button">
+        Learn more about us
+    </a>
+</div>
+</body>
+</html>

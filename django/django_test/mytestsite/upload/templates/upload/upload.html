@@ -9,11 +9,19 @@
 <!-- SIDEBAR STYLES -->
 <style>
 
+    #barContainer {
+        text-align: center;
+        width: 100%;
+    }
+
 #myProgress {
+    display: inline-block;
+    text-align: center;
 	width: 50%;
 	background-color: #ddd;
 }
 #myBar {
+    margin: auto;
 	width: 0%;
 	height: 30px;
 	background-color: #4CAF50;
@@ -22,8 +30,17 @@
 	color: white;
 }
 
+#main{
+    padding: 0 20px 20px;
+}
+
+#method{
+    padding-left: 20px;
+}
+
 body {
     background-color:#a6a6a6;
+    height: 100vh;
 }
 body {
   font-family: "Lato", sans-serif;
@@ -42,7 +59,10 @@ div.transbox {
   border: 1px solid black;
   opacity: 0.6;
   filter: alpha(opacity=60);
+    padding: 20px;
 }
+
+
 
 .sidebar {
   height: 100%;
@@ -236,7 +256,7 @@ div.transbox {
 
 <html>
 <body>
-  <form method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data" id="method">
   {% csrf_token %}
     <input type="file" id="uploadFile" name="myfile">
     <button type="submit" onclick="move()">Upload</button>
@@ -245,14 +265,16 @@ div.transbox {
     <div class="a">
       <div class="center">
         <p>Once you click upload, it will take approximately one minute to recolor your photo, so please be patient!</p>
-        <p>works for all sized photos, but please note that square photos yield better results </p>
+        <p>This works for all sized photos, but please note that square photos yield better results. </p>
       </div>
     </div>
   </div>
   <div>
-  <div id="myProgress" style="visibility: hidden;">
-	<div id="myBar">0%</div>
-  </div>
+      <div id="barContainer">
+        <div id="myProgress" style="visibility: hidden;">
+	        <div id="myBar">0%</div>
+        </div>
+      </div>
 
   </div>
   {% if uploaded_file_url %}

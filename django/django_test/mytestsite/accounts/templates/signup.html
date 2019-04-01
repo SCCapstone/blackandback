@@ -12,6 +12,12 @@
       font-family: "Lato", sans-serif;
     }
 
+    .container {
+        width: 100%;
+        max-width: 60em;
+        margin: 0 auto 0;
+    }
+
     .sidebar {
       height: 100%;
       width: 0;
@@ -127,6 +133,8 @@
 
 <!-- CONTENT -->
 
+<div class="container">
+
 {% block content %}
   <div>
     <h2><font color="white">Sign up</h2>
@@ -170,6 +178,6 @@ function openNav() {
           }
         }
 </script>
-
+</div>
 </body>
 </html>
