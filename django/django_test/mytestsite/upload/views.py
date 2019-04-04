@@ -19,7 +19,11 @@ def upload(request):
 		fs = FileSystemStorage()
 		filename = fs.save(username + "/" + myfile.name, myfile)
 		uploaded_file_url = fs.url(filename)
-		recolorNet.runNN(username,myfile.name)
+		print("myfile.name", myfile.name)
+
+		#This line location using myfile.name wasn't accounting for the renaming of duplicate files(idk where that happens)
+		#Moved it down to where the new file name is used, and just ran that as a parameter- voila!
+		#recolorNet.runNN(username,myfile.name)
 		print(uploaded_file_url)
 		
 	
@@ -27,6 +31,10 @@ def upload(request):
 		fileName.replace('\\','/')
 		split = fileName.split("/")
 		photo = split[4]
+		
+		#Working location and parameter for runNN
+		recolorNet.runNN(username,photo)
+
 		photo = photo.split('.', 1)[0]
 		photo = photo + "_recolored.png"
 		#filePath = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3] + "/" +  photo
