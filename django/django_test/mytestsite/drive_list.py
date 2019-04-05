@@ -49,7 +49,7 @@ def upload_photo(imgName):
             #credentials = run_flow(flow, STORAGE, http=http)
             credentials = tools.run_flow(flow, STORAGE, flags)
     return credentials
-    print("uploading")
+    
 
     http = httplib2.Http()
     http = credentials.authorize(http)
