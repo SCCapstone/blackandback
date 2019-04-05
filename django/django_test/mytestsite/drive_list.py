@@ -48,12 +48,12 @@ def upload_photo(imgName):
         if flags:
             #credentials = run_flow(flow, STORAGE, http=http)
             credentials = tools.run_flow(flow, STORAGE, flags)
-    return credentials
+    #return credentials
     
 
     http = httplib2.Http()
     http = credentials.authorize(http)
-    drive = build('drive', 'v3', http = http, credentials=credentials)
+    drive = discovery.build('drive', 'v3', http = http) #credentials=credentials)
 
     FILES = (
         (imgName, None),
