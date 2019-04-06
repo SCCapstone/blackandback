@@ -18,6 +18,7 @@ Running this code locally requires the following software:
     [scikit-image]
     [pillow]  
     [progrssbar.js]
+    [google_auth_oauthlib]
     [google-api-python-client]
     [oauth2client]
     
