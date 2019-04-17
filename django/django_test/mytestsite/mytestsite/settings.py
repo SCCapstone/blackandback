@@ -27,7 +27,8 @@ SECRET_KEY = 'dx-t7c#j-7^yg7cv)6&)fp)xw3*p4c=#lw-2ez)e)^@8-o*-u^'
 DEBUG = True
 
 ALLOWED_HOSTS = ['35.243.192.37',
-				 '127.0.0.1']
+				 '127.0.0.1',
+                 'blackandback.ml']
 
 
 # Application definition

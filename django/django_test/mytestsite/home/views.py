@@ -58,6 +58,7 @@ def featured_photos(request):
 	#your_path = os.path.join(base_url,your_media_root)
 	print("Path: ", your_media_root)
 	recoloredList = []
+	account = ""
 	for path, dirs, files in os.walk(your_media_root):
 		print(path)
 		print("Subdirectories: ", dirs)
