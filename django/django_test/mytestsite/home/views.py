@@ -68,6 +68,7 @@ def featured_photos(request):
 		user = split[len(split)-1]
 		user = user.split("\\")
 		print("user: ", user)
+		path.replace('//', '/')
 		if len(user) >= 2:
 			print("user[1]: ", user[1])
 			account = user[1]
