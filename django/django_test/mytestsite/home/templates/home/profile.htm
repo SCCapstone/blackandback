@@ -185,10 +185,6 @@
                                   <figure class="image is-128x128">
                                   <img src="{{ profile_url }}" style="width:100px;height:100px;">
                                 </figure>
-                                  {% endif %}3
-
-                                  {% if uploaded_file_url %}
-                                    <div class="a">profile pic uploaded</div>
                                   {% endif %}
                                 </div>
 
@@ -200,7 +196,6 @@
                                   {% for file in 'upload/files/'  %}
 
                                       <div class="column">
-                                        <p>images... </p>
                                         <figure class="image is-128x128">
                                         <img src="{{ upload_file_url }}" alt="">
                                         </figure>
@@ -287,6 +282,16 @@
           }
         }
         </script>
-
+      <center>
+        <p>
+          Is your profile picture black and white and you want to add some color to it?
+        </p>
+      </center>
+      <center>
+        <form action="/upload">
+          <input type="submit" value="Take me to recolor my photo" />
+        </form>
+      </center>
     </body>
+
 </html>
