@@ -173,8 +173,8 @@
                               <div class="moveright">
                             <form class="field" method="post" enctype="multipart/form-data">
                               {% csrf_token %}
-                              <div class="control"><input class="input" type="file" name="myfile"></div>
-                              <div class="control"><button class="button" type="submit">Upload</button></div>
+                              <div class="control"><input class="input" type="file" name="myfile" onclick="enableUpload()"></div>
+                              <div class="control"><button class="button" id="uploadBtn" type="submit" disabled>Upload</button></div>
                             </form>
 
 
@@ -267,7 +267,9 @@
             navButton.style.display = "none"
           }
         }
-
+        function enableUpload(){
+          document.getElementById("uploadBtn").disabled = false;
+        }
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
           document.getElementById("main").style.marginLeft= "0";
@@ -280,6 +282,9 @@
           {
             navButton.style.display = "none"
           }
+        }
+        function disabledIt() {
+          document.getElementById("myFile").disabled = false;
         }
         </script>
       <center>
