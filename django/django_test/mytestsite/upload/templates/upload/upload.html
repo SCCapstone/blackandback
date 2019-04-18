@@ -222,6 +222,11 @@ div.transbox {
 			}
 		}
 	}
+
+  function enableUpload(){
+    document.getElementById("uploadBtn").disabled = false;
+  }
+  
 	function finish() {
 		document.getElementById("myProgress").style.visibility="visible";
 		var elem = document.getElementById("myBar");
@@ -258,8 +263,8 @@ div.transbox {
 <body>
   <form method="post" enctype="multipart/form-data" id="method">
   {% csrf_token %}
-    <input type="file" id="uploadFile" name="myfile">
-    <button type="submit" onclick="move()">Upload</button>
+    <input type="file" id="uploadFile" name="myfile" onclick="enableUpload()">
+    <button type="submit" onclick="move()" id="uploadBtn" disabled>Upload</button>
   </form>
   <div class="transbox">
     <div class="a">
@@ -279,7 +284,11 @@ div.transbox {
   </div>
   {% if uploaded_file_url %}
     <script>finish();</script>
-
+    <script>
+      function disabledIt() {
+        document.getElementById("myFile").disabled = false;
+      }
+    </script>
 	  <button onclick="displayLink()">Display photo!</button>
   
     <form action="#" method="POST" enctype="multipart/form-data">
