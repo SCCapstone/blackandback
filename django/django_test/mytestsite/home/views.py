@@ -58,6 +58,7 @@ def featured_photos(request):
 	#your_path = os.path.join(base_url,your_media_root)
 	print("Path: ", your_media_root)
 	recoloredList = []
+	account = ""
 	for path, dirs, files in os.walk(your_media_root):
 		print(path)
 		print("Subdirectories: ", dirs)
@@ -67,13 +68,12 @@ def featured_photos(request):
 		user = split[len(split)-1]
 		user = user.split("\\")
 		print("user: ", user)
-		if len(user) >= 2:
-			print("user[1]: ", user[1])
-			account = user[1]
-			print("account: ", account)
-		for file in files:
-			if file.endswith(".png"):
-				recoloredList.append((account,file))
+		path.replace('//', '/')
+		for account in user:
+			for file in files:
+				if file.endswith(".png") & ("recolored" in file):
+					if account != "files":
+						recoloredList.append((account, file))
 	print("RECOLORED LIST: ", recoloredList)
 	#f fileName.endswith(".png"):
 	#	print("Display this image")
