@@ -5,7 +5,7 @@ from .recolorMod import recolorNet
 from django.http import HttpResponse
 from django.core.signals import request_finished
 from django.dispatch import receiver
-
+from django.contrib import messages
 
 import os, shutil
 import drive_list
@@ -33,8 +33,14 @@ def upload(request):
 		photo = split[4]
 		
 		#Working location and parameter for runNN
-		recolorNet.runNN(username,photo)
-
+		
+		runStatus = True
+		
+		runStatus = recolorNet.runNN(username,photo, False)
+		if not runStatus:
+			messages.error(request, "Recolor failed, please refresh and try again")
+			
+		
 		photo = photo.split('.', 1)[0]
 		photo = photo + "_recolored.png"
 		#filePath = split[0] + "/" + split[1] + "/" + split[2] + "/" + split[3] + "/" +  photo

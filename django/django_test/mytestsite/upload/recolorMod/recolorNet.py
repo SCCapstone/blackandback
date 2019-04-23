@@ -36,6 +36,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class RecolorNN(object):
 	def __init__(self,**kwargs):
+		
+		print("Starting init")
 		self.inception = InceptionResNetV2(weights=None, include_top=True)
 		self.saveNotFound = True
 		self.model = Sequential()
@@ -50,70 +52,65 @@ class RecolorNN(object):
 		self.numEpochs = 1
 		self.numSteps = 1
 		
-	def loadTrainFiles(self):
-		if(self.saveNotFound):
-			X = []
-			for filename in os.listdir('upload/recolorMod/train'):
-				X.append(img_to_array(load_img('upload/recolorMod/train/'+filename)))
-			X = np.array(X, dtype=float)
-			self.Xtrain = 1.0/255*X	
-		
+		print("end init")
 		
 	def loadWeights(self):
-		
-		
+		print("Starting load weights")
 		try:
-			self.inception.load_weights('upload/saves/model.h5')
-		except Exception as e:
-			print(e)
-		self.inception.graph = tf.get_default_graph()
+			self.inception.graph = tf.get_default_graph()
+			self.saveNotFound = True
 		
-		
-		self.saveNotFound = True
-		
-		
-		try:
 			json_file = open("upload/saves/model.json", 'r')
 			loaded_model_json = json_file.read()
 			json_file.close()
 			self.model = model_from_json(loaded_model_json)
 			self.model.load_weights("upload/saves/model.h5")
 			self.saveNotFound = False
-		except Exception as e:
-			print(e)
+			
+		except:	
+			print("loadWeights failed.")
+			return False
+		return True
+		
 	def buildLayers(self):
-		embed_input = Input(shape=(1000,))
-		if(self.saveNotFound):
-			#Encoder
-			encoder_input = Input(shape=(256, 256, 1,))
-			encoder_output = Conv2D(64, (3,3), activation='relu', padding='same', strides=2)(encoder_input)
-			encoder_output = Conv2D(128, (3,3), activation='relu', padding='same')(encoder_output)
-			encoder_output = Conv2D(128, (3,3), activation='relu', padding='same', strides=2)(encoder_output)
-			encoder_output = Conv2D(256, (3,3), activation='relu', padding='same')(encoder_output)
-			encoder_output = Conv2D(256, (3,3), activation='relu', padding='same', strides=2)(encoder_output)
-			encoder_output = Conv2D(512, (3,3), activation='relu', padding='same')(encoder_output)
-			encoder_output = Conv2D(512, (3,3), activation='relu', padding='same')(encoder_output)
-			encoder_output = Conv2D(256, (3,3), activation='relu', padding='same')(encoder_output)
+		print("Starting layers")
+		try:
+			embed_input = Input(shape=(1000,))
+			if(self.saveNotFound):
+				#Encoder
+				encoder_input = Input(shape=(256, 256, 1,))
+				encoder_output = Conv2D(64, (3,3), activation='relu', padding='same', strides=2)(encoder_input)
+				encoder_output = Conv2D(128, (3,3), activation='relu', padding='same')(encoder_output)
+				encoder_output = Conv2D(128, (3,3), activation='relu', padding='same', strides=2)(encoder_output)
+				encoder_output = Conv2D(256, (3,3), activation='relu', padding='same')(encoder_output)
+				encoder_output = Conv2D(256, (3,3), activation='relu', padding='same', strides=2)(encoder_output)
+				encoder_output = Conv2D(512, (3,3), activation='relu', padding='same')(encoder_output)
+				encoder_output = Conv2D(512, (3,3), activation='relu', padding='same')(encoder_output)
+				encoder_output = Conv2D(256, (3,3), activation='relu', padding='same')(encoder_output)
 
-			#Fusion
-			fusion_output = RepeatVector(32 * 32)(embed_input) 
-			fusion_output = Reshape(([32, 32, 1000]))(fusion_output)
-			fusion_output = concatenate([encoder_output, fusion_output], axis=3) 
-			fusion_output = Conv2D(256, (1, 1), activation='relu', padding='same')(fusion_output) 
+				#Fusion
+				fusion_output = RepeatVector(32 * 32)(embed_input) 
+				fusion_output = Reshape(([32, 32, 1000]))(fusion_output)
+				fusion_output = concatenate([encoder_output, fusion_output], axis=3) 
+				fusion_output = Conv2D(256, (1, 1), activation='relu', padding='same')(fusion_output) 
 
-			#Decoder
-			decoder_output = Conv2D(128, (3,3), activation='relu', padding='same')(fusion_output)
-			decoder_output = UpSampling2D((2, 2))(decoder_output)
-			decoder_output = Conv2D(64, (3,3), activation='relu', padding='same')(decoder_output)
-			decoder_output = UpSampling2D((2, 2))(decoder_output)
-			decoder_output = Conv2D(32, (3,3), activation='relu', padding='same')(decoder_output)
-			decoder_output = Conv2D(16, (3,3), activation='relu', padding='same')(decoder_output)
-			decoder_output = Conv2D(2, (3, 3), activation='tanh', padding='same')(decoder_output)
-			decoder_output = UpSampling2D((2, 2))(decoder_output)
+				#Decoder
+				decoder_output = Conv2D(128, (3,3), activation='relu', padding='same')(fusion_output)
+				decoder_output = UpSampling2D((2, 2))(decoder_output)
+				decoder_output = Conv2D(64, (3,3), activation='relu', padding='same')(decoder_output)
+				decoder_output = UpSampling2D((2, 2))(decoder_output)
+				decoder_output = Conv2D(32, (3,3), activation='relu', padding='same')(decoder_output)
+				decoder_output = Conv2D(16, (3,3), activation='relu', padding='same')(decoder_output)
+				decoder_output = Conv2D(2, (3, 3), activation='tanh', padding='same')(decoder_output)
+				decoder_output = UpSampling2D((2, 2))(decoder_output)
 
-			self.model = Model(inputs=[encoder_input, embed_input], outputs=decoder_output)
-			self.model._make_predict_function()
-
+				self.model = Model(inputs=[encoder_input, embed_input], outputs=decoder_output)
+				self.model._make_predict_function()
+		except:
+			print("build layers failed")
+			return False
+		
+		return True
 
 
 
@@ -150,6 +147,7 @@ class RecolorNN(object):
 			print("model compiled")
 			self.model.fit_generator(self.image_a_b_gen(), epochs=self.numEpochs, steps_per_epoch=self.numSteps)
 			print("model fit")
+		
 	def saveModel(self):
 	# Save model
 		if(self.saveNotFound):
@@ -168,50 +166,98 @@ class RecolorNN(object):
 		
 	def makePredictions(self,username,recolorFile):
 	#Make predictions on validation images
-		FILE_DIR = ''
-		if self.saveNotFound :
-			FILE_DIR = 'upload/recolorMod/test/'
-		else:
-			FILE_DIR = 'upload/files/' + username + "/" + recolorFile
+		print("Starting predictions")
+		try:
+		
+			FILE_DIR = ''
+			if self.saveNotFound :
+				FILE_DIR = 'upload/recolorMod/test/'
+			else:
+				FILE_DIR = 'upload/files/' + username + "/" + recolorFile
 	
 		
-		resized_image = self.resize_image(FILE_DIR, username)
-		self.color_me.append(img_to_array(resized_image)) #work here, maybe scratch load_img 
-		self.color_me = np.array(self.color_me, dtype=float)
-		self.color_me = 1.0/255*self.color_me
-		self.color_me = gray2rgb(rgb2gray(self.color_me))
-		self.color_me_embed = self.create_inception_embedding(self.color_me)
-		self.color_me = rgb2lab(self.color_me)[:,:,:,0]
-		self.color_me = self.color_me.reshape(self.color_me.shape+(1,))
+			resized_image = self.resize_image(FILE_DIR, username)
+			self.color_me.append(img_to_array(resized_image)) #work here, maybe scratch load_img 
+			self.color_me = np.array(self.color_me, dtype=float)
+			self.color_me = 1.0/255*self.color_me
+			self.color_me = gray2rgb(rgb2gray(self.color_me))
+			self.color_me_embed = self.create_inception_embedding(self.color_me)
+			self.color_me = rgb2lab(self.color_me)[:,:,:,0]
+			self.color_me = self.color_me.reshape(self.color_me.shape+(1,))
 		
-		
-
+		except:
+			print("makePredictions failed")
+			return False
+	
+		return True
 	def testModel(self):
 		# Test model
-		self.output = self.model.predict([self.color_me, self.color_me_embed])
-		self.output = self.output * 128
-
+		try:
+		
+			self.output = self.model.predict([self.color_me, self.color_me_embed])
+			self.output = self.output * 128
+		except:
+			print("Test model failed")
+			return False
+		return True
 	def outputColors(self, username, recolorFile):
 		# Output colorizations
-		for i in range(len(self.output)):
-			cur = np.zeros((256, 256, 3))
-			cur[:,:,0] = self.color_me[i][:,:,0]
-			cur[:,:,1:] = self.output[i]
-			recolorFile = os.path.splitext(recolorFile)[0] 
-			imsave("upload/files/" + username + "/" + recolorFile + "_recolored.png" , lab2rgb(cur))	
-		K.clear_session()
+		print("Starting output")
+		try:
+			for i in range(len(self.output)):
+				cur = np.zeros((256, 256, 3))
+				cur[:,:,0] = self.color_me[i][:,:,0]
+				cur[:,:,1:] = self.output[i]
+				recolorFile = os.path.splitext(recolorFile)[0] 
+				imsave("upload/files/" + username + "/" + recolorFile + "_recolored.png" , lab2rgb(cur))
+				print("Img outputted")
+			K.clear_session()
+		except:
+			print("Output colors failed")
+			return False
+		return True
 		
-def runNN(username,recolorFile):
-	NN = RecolorNN()
-	NN.loadWeights()
-	NN.loadTrainFiles()
-	NN.buildLayers()
-	NN.trainModel()
-	NN.saveModel()
-	NN.makePredictions(username,recolorFile)
-	NN.testModel()
-	print("Outputting images")
-	NN.outputColors(username, recolorFile)
-	print("Outputted images")
-	return 0
+def runNN(username,recolorFile, admin):
+	
+	if admin:
+		NN = RecolorNN()
+		NN.loadWeights()
+		NN.loadTrainFiles()
+		NN.buildLayers()
+		NN.trainModel()
+		NN.saveModel()
+		NN.makePredictions(username,recolorFile)
+		NN.testModel()
+		print("Outputting images")
+		NN.outputColors(username, recolorFile)
+		print("Outputted images")
+	else:
+		noError = True
+		NN = RecolorNN()
+		noError = NN.loadWeights()
+		if noError:
+			print("Load weights successful")
+			noError = NN.buildLayers()
+			if noError:
+				print("Build layers successful")
+				noError = NN.makePredictions(username, recolorFile)
+				if noError:
+					print("Make predictions successful")
+					noError = NN.testModel()
+					if noError:
+						noError = NN.outputColors(username, recolorFile)
+						if noError:
+							print('outputColors successful')
+						else:
+							return False
+					else:
+						return False
+				else:
+					return False 
+			else:
+				return False
+		else:
+			return False
+		
+		return True
 
