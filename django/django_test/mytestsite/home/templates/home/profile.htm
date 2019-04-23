@@ -173,8 +173,8 @@
                               <div class="moveright">
                             <form class="field" method="post" enctype="multipart/form-data">
                               {% csrf_token %}
-                              <div class="control"><input class="input" type="file" name="myfile"></div>
-                              <div class="control"><button class="button" type="submit">Upload</button></div>
+                              <div class="control"><input class="input" type="file" name="myfile" onclick="enableUpload()"></div>
+                              <div class="control"><button class="button" id="uploadBtn" type="submit" disabled>Upload</button></div>
                             </form>
 
 
@@ -185,10 +185,6 @@
                                   <figure class="image is-128x128">
                                   <img src="{{ profile_url }}" style="width:100px;height:100px;">
                                 </figure>
-                                  {% endif %}3
-
-                                  {% if uploaded_file_url %}
-                                    <div class="a">profile pic uploaded</div>
                                   {% endif %}
                                 </div>
 
@@ -200,7 +196,6 @@
                                   {% for file in 'upload/files/'  %}
 
                                       <div class="column">
-                                        <p>images... </p>
                                         <figure class="image is-128x128">
                                         <img src="{{ upload_file_url }}" alt="">
                                         </figure>
@@ -272,7 +267,9 @@
             navButton.style.display = "none"
           }
         }
-
+        function enableUpload(){
+          document.getElementById("uploadBtn").disabled = false;
+        }
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
           document.getElementById("main").style.marginLeft= "0";
@@ -286,7 +283,20 @@
             navButton.style.display = "none"
           }
         }
+        function disabledIt() {
+          document.getElementById("myFile").disabled = false;
+        }
         </script>
-
+      <center>
+        <p>
+          Is your profile picture black and white and you want to add some color to it?
+        </p>
+      </center>
+      <center>
+        <form action="/upload">
+          <input type="submit" value="Take me to recolor my photo" />
+        </form>
+      </center>
     </body>
+
 </html>

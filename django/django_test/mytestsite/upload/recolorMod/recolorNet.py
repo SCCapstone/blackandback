@@ -21,6 +21,7 @@ import random
 import tensorflow as tf
 import datetime
 import glob
+import h5py
 
 from keras import backend as K
 
