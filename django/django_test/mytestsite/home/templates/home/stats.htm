@@ -117,14 +117,33 @@
           clear: both;
           display: table;
         }
-
+        @media screen and (max-height: 450px) {
+          .sidebar {padding-top: 15px;}
+          .sidebar a {font-size: 18px;}
+        }
+        @media only screen and (max-width:800px) {
+          .main {
+            width: 80%;
+            padding: 0;
+          }
+          .right {
+            width: 100%;
+          }
+        }
+        @media only screen and (max-width:500px) {
+          .menu, .main, .right {
+            width: 100%;
+          }
+      }
     </style>
 </head>
 
 <!--SIDEBAR-->
   <body>
         <div class="container">
-          <img id="logo" src="http://i64.tinypic.com/34qthlj.png" border="0" width="70" height="70" alt="Logo"</a>
+            <center>
+                <img src="https://i.ibb.co/SmcX8MF/final.jpg" width="1250">
+            </center>
           <div id="welcome">
             {% block content %}
             {% if user.is_authenticated %}
