@@ -110,3 +110,4 @@ venv.bak/
 
 # Mac thing
 *.DS_Store
+*.sqlite3
